@@ -10,21 +10,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+
 @Getter @Setter
 @JsonIgnoreProperties(ignoreUnknown=true)
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class DetourResponse {
+public class ShoppingAttributes {
 	
-	private String origin;
-    private String destination;
-    private String carrier;
-	private double amount;
-	private ShoppingAttributes shoppingAttributes;
-	private List<Flights> flightsList;
-	private String ngsRating;
-	private List<AirportInfo> airportInfoList;
-	private DestinationInfo destinationInfo;
-	
+	private List<Fares> fares;
+
 }
+
