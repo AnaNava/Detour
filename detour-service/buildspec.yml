@@ -11,6 +11,6 @@ phases:
       - mvn package
 artifacts:
   files:
-    - target/sdetour-service-0.0.1-SNAPSHOT.jar
+    - target/detour-service-0.0.1-SNAPSHOT.jar
     - appspec.yml
   discard-paths: yes
