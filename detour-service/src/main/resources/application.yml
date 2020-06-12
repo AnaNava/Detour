@@ -1,0 +1,12 @@
+server:
+  port: 9997
+
+app:
+  name: detourservice
+
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/detourdb
