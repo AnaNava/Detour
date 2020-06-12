@@ -1,5 +1,5 @@
 server:
-  port: 9997
+  port: 5000
 
 app:
   name: detourservice
@@ -7,6 +7,3 @@ app:
 spring:
   main:
     allow-bean-definition-overriding: true
-  data:
-    mongodb:
-      uri: mongodb://localhost:27017/detourdb
