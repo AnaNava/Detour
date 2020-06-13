@@ -1,0 +1,12 @@
+.example-full-width {
+    width: 20%;
+    color:black;
+  }
+  
+  mat-form-field {
+    margin-right: 12px;
+  }
+
+  .mat-icon {
+    font-size: 36px;
+}

@@ -1,0 +1,45 @@
+<!--The content below is only a placeholder and can be replaced.-->
+
+<!--The content below is only a placeholder and can be replaced.-->
+
+<mat-toolbar color="primary">
+  <img class="imagestylelogo" src="assets/NGSTM.jpg">
+  <span>Next Generation Storefront</span>
+  <span class="spacer"></span>
+  <button mat-icon-button [matMenuTriggerFor]="menu">
+  <mat-icon>more_vert</mat-icon>
+</button>
+<mat-menu #menu="matMenu">
+    <button mat-menu-item>
+      <mat-icon>fingerprint</mat-icon>
+      <span>Login</span>
+    </button>
+    <button mat-menu-item disabled>
+      <mat-icon>announcement</mat-icon>
+      <span>Issues</span>
+    </button>
+    <button mat-menu-item>
+      <mat-icon>notifications_off</mat-icon>
+      <span>Disable alerts</span>
+    </button>
+  </mat-menu>
+</mat-toolbar>
+  <img class="imagestyle" src="assets/Capture.PNG">
+  <nav mat-tab-nav-bar>
+    <a mat-tab-link
+       [routerLink]="['/pricing']">
+        Flight Search
+    </a>
+    <a mat-tab-link
+    [routerLink]="['/multilegshelves']">
+     Multi-Leg Validation
+ </a>
+</nav>
+<div class="container">
+  <router-outlet></router-outlet>
+</div>
+<footer>
+  <div layout="row">
+      <p>© Copyright ATPCO 2019. All Rights reserved.</p>
+  </div>
+</footer>

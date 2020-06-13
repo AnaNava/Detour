@@ -1,0 +1,71 @@
+<div class="example-container mat-elevation-z8">
+  <div class="example-loading-shade" *ngIf="isLoadingResults">
+    <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+  </div>
+  <div class="button-row">
+    <a mat-flat-button color="primary" [routerLink]="['/pricing']">
+      <mat-icon class=header-icon>query_builder</mat-icon>
+    </a>
+  </div>
+  <div class=mat-elevation-z8>
+    <table class="mat-table">
+      <thead>
+        <tr class="mat-header-row">
+          <th class="mat-header-cell">ORIGIN<mat-icon class=header-icon>local_airport</mat-icon>DESTINATION </th>
+
+          <th *ngFor="let shelf of SHELFS" class="mat-header-cell">
+            <img class="imageheaderstyle" [src]="'assets/' + shelf.short + '_img.png'">
+          </th>
+        </tr>
+
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let detail of itineraryshelves; let i = index">
+          <tr class="mat-row" (click)="toggleDetail(detail)">
+            <td class="mat-cell">
+              <p><img class="imagestylecarrier"
+                  src="{{getimageforcarrier(detail.itineraryFlight.mktCarrier)}}" />{{detail.itineraryFlight.departureAirport}}
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;{{detail.itineraryFlight.arrivalAirport}}
+                <br />
+                <span
+                  class=iconsize>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{detail.itineraryFlight.mktCarrier}}
+                  {{detail.itineraryFlight.mktFlightNumber}}</span>
+                <br />
+                <span
+                  class=iconsize>{{detail.itineraryFlight.departureDateTime}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{detail.itineraryFlight.arrivalDateTime}}</span>
+              </p>
+            </td>
+            <td *ngFor="let shelf of SHELFS" class="mat-cell">
+              <div *ngIf="isEmptyObject(detail.attributes[shelf.upper])">
+                <p>${{detail.attributes[shelf.upper].amount}}<br /><span class=iconsize>
+                    {{detail.attributes[shelf.upper].fareBasisCode}}
+                    <br /><img class="imagestyle"
+                      src="{{isImgSrc(detail.attributes[shelf.upper].upaUrl,shelf.cabin)}}" />
+                    <br /> {{detail.attributes[shelf.upper].cabin}}
+                    <br /> {{detail.attributes[shelf.upper].brandName}}
+                  </span></p>
+              </div>
+            </td>
+          </tr>
+          <ng-container *ngFor="let drawer of DRAWERS">
+            <tr class="mat-row" *ngIf="detail.expanded">
+              <td class="mat-cell drawerRowHeader">
+                {{drawer }}
+              </td>
+
+              <td *ngFor="let shelf of SHELFS" class="mat-cell">
+                <div *ngIf="isEmptyObject(detail.attributes[shelf.upper])">
+                  {{detail.attributes[shelf.upper].drawer[drawer]}}</div>
+              </td>
+            </tr>
+          </ng-container>
+
+        </ng-container>
+
+      </tbody>
+    </table>
+
+
+  </div>
+</div>
