@@ -1,5 +1,6 @@
 package net.atpco.detour.repository;
 
+import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Repository;
@@ -20,6 +21,14 @@ public class DetourRepositoryImpl implements DetourRepository {
 	public DetourRequest insert(DetourRequest detourReq, String collectionName) {
 		
 		return (DetourRequest) template.insert(detourReq, collectionName);
+	}
+
+	@Override
+	public void addJSONResponse(Document myDoc, String collectionName) {
+		log.info("Adding JSON as document");
+		
+		template.save(myDoc, collectionName);
+		
 	}
   
 }
