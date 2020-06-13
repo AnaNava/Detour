@@ -50,8 +50,8 @@ public class MongoConfig {
 
     
     private String getMongoUri() {
-        //String template = "mongodb://%s:%s@%s:%s/%s?ssl=true&ssl_ca_certs=rds-combined-ca-bundle.pem&replicaSet=rs0&readPreference=secondaryPreferred&retryWrites=false";
-    	String template = "mongodb://%s:%s@%s:%s/%s?replicaSet=rs0&readPreference=secondaryPreferred&retryWrites=false";
+        String template = "mongodb://%s:%s@%s:%s/%s?ssl=true&ssl_ca_certs=rds-combined-ca-bundle.pem&replicaSet=rs0&readPreference=secondaryPreferred&retryWrites=false";
+    	//String template = "mongodb://%s:%s@%s:%s/%s?replicaSet=rs0&readPreference=secondaryPreferred&retryWrites=false";
     	String connectionString = String.format(template, mongoUser, mongoPassword, mongoHost, mongoPort, mongoDatabase);
         System.out.println("******  " + connectionString);
         return connectionString;
