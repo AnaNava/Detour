@@ -10,6 +10,8 @@ import java.security.cert.X509Certificate;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.util.StringUtils;
@@ -66,7 +68,9 @@ public class DetourServiceApplication {
 
 		private static X509Certificate createCertificate(String sslCertificate) throws Exception {
 			CertificateFactory certFactory = CertificateFactory.getInstance("X.509");
-			URL url = new File(sslCertificate).toURI().toURL();
+			Resource resource = new ClassPathResource(sslCertificate);
+			InputStream input = resource.getInputStream();
+			URL url =  resource.getFile().toURI().toURL();
 			if (url == null) {
 				throw new Exception();
 			}
