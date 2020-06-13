@@ -18,6 +18,8 @@ public class Fares {
 	private String fareClass;
 	private String currency;
 	private String rbd;
+	private String brand;
+	
 
 	
 }

@@ -17,4 +17,6 @@ public class Flights {
 	private String flightNumber;
 	private String cabin;
 	private String ammenities; //object
+	//Restrictions
+	private String restrictions;
 }
