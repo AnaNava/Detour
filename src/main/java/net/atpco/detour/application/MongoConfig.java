@@ -48,15 +48,6 @@ public class MongoConfig {
 		return new MongoTemplate(mongoDbFactory());
 	}
 
-	@Bean
-    public ValidatingMongoEventListener validatingMongoEventListener() {
-        return new ValidatingMongoEventListener(validator());
-    }
-
-    @Bean
-    public LocalValidatorFactoryBean validator() {
-        return new LocalValidatorFactoryBean();
-    }
     
     private String getMongoUri() {
         String template = "mongodb://%s:%s@%s/%s?replicaSet=rs0&readPreference=secondaryPreferred&retryWrites=false";

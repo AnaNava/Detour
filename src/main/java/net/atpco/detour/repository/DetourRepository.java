@@ -1,9 +1,12 @@
 package net.atpco.detour.repository;
 
-import java.util.List;
+import org.springframework.stereotype.Repository;
 
+import net.atpco.detour.model.DetourRequest;
+
+@Repository
 public interface DetourRepository {
-//	List<UniqueMarket> insert(List<UniqueMarket> batchToSave, String collectionName);
+	DetourRequest insert(DetourRequest detourReq, String collectionName);
 //	void dropCollection(String collectionName);
 //	List<UniqueMarket> getUniqueMarkets(String queryId);
 }

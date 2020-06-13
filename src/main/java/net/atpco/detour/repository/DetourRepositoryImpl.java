@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import net.atpco.detour.model.DetourRequest;
 
 
 @Repository
@@ -14,5 +15,11 @@ import lombok.extern.slf4j.Slf4j;
 public class DetourRepositoryImpl implements DetourRepository {
     @Autowired
     private MongoTemplate template;
+
+	@Override
+	public DetourRequest insert(DetourRequest detourReq, String collectionName) {
+		
+		return (DetourRequest) template.insert(detourReq, collectionName);
+	}
   
 }
