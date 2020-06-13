@@ -6,9 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.mongodb.MongoDbFactory;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.SimpleMongoDbFactory;
-import org.springframework.data.mongodb.core.mapping.event.ValidatingMongoEventListener;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
-import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 import com.mongodb.MongoClientURI;
 import com.mongodb.client.MongoClient;
@@ -50,7 +48,7 @@ public class MongoConfig {
 
     
     private String getMongoUri() {
-        String template = "mongodb://%s:%s@%s:%s/%s?ssl=true&replicaSet=rs0&readPreference=secondaryPreferred&retryWrites=false";
+        String template = "mongodb://%s:%s@%s:%s/%s?replicaSet=rs0&readPreference=secondaryPreferred&retryWrites=false";
     	//String template = "mongodb://%s:%s@%s:%s/%s?replicaSet=rs0&readPreference=secondaryPreferred&retryWrites=false";
     	String connectionString = String.format(template, mongoUser, mongoPassword, mongoHost, mongoPort, mongoDatabase);
         System.out.println("******  " + connectionString);
