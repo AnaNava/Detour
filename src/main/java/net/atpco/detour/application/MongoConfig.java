@@ -18,17 +18,29 @@ import com.mongodb.client.MongoClients;
 @Configuration
 public class MongoConfig {
 	
-	@Value("${spring.data.mongodb.uri}")
-	private String mongoUri;
-
+	@Value("${spring.data.mongodb.host}")
+	private String mongoHost;
+	
+	@Value("${spring.data.mongodb.port}")
+	private String mongoPort;
+	
+	@Value("${spring.data.mongodb.database}")
+	private String mongoDatabase;
+	
+	@Value("${spring.data.mongodb.username")
+	private String mongoUser;
+	
+	@Value("${spring.data.mongodb.password")
+	private String mongoPassword;
+	
 	@Bean
 	public MongoClient mongoClient() {
-	    return MongoClients.create(mongoUri);
+	    return MongoClients.create(getMongoUri());
 	}
 
 	@Bean
 	public MongoDbFactory mongoDbFactory() {
-		return new SimpleMongoDbFactory(new MongoClientURI(mongoUri));
+		return new SimpleMongoDbFactory(new MongoClientURI(getMongoUri()));
 	}
 
 	@Bean
@@ -44,5 +56,12 @@ public class MongoConfig {
     @Bean
     public LocalValidatorFactoryBean validator() {
         return new LocalValidatorFactoryBean();
+    }
+    
+    private String getMongoUri() {
+        String template = "mongodb://%s:%s@%s/%s?replicaSet=rs0&readPreference=secondaryPreferred&retryWrites=false";
+        String connectionString = String.format(template, mongoUser, mongoPassword, mongoHost, mongoDatabase);
+        System.out.println("******  " + connectionString);
+        return connectionString;
     }
 }
