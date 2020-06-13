@@ -1,5 +1,6 @@
 package net.atpco.detour.service;
 
+import org.bson.Document;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -11,11 +12,14 @@ import org.springframework.web.client.RestTemplate;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import net.atpco.detour.repository.DetourRepository;
 
 @Service
 @Slf4j
 @RequiredArgsConstructor
 public class SearchService {
+
+	private DetourRepository detourRepository;
 
 	private final String countryUrl = "https://www.sitata.com/api/v2/countries/countryid/travel_restrictions";
 
@@ -41,12 +45,21 @@ public class SearchService {
 
 		log.info("After replace {} to {} ", url);
 
-		HttpEntity<String> response = callAPI(restTemplate, headers, url);
+		ResponseEntity<String> response = callAPI(restTemplate, headers, url);
+
+		Document myDoc = Document.parse(response.getBody());
+		myDoc.append("COUNTRY_CODE", countryCode);
+
+		//saveJSONtoDB(myDoc,  "COUNTRY_RES");
 
 		return response;
 	}
 
-	private HttpEntity<String> callAPI(RestTemplate restTemplate, MultiValueMap<String, String> headers, String countryUrl) {
+	private void saveJSONtoDB(Document myDoc, String collectionName) {
+		detourRepository.addJSONResponse(myDoc, collectionName);		
+	}
+
+	private ResponseEntity<String> callAPI(RestTemplate restTemplate, MultiValueMap<String, String> headers, String countryUrl) {
 		HttpEntity<String> request = new HttpEntity<>("", headers);
 		ResponseEntity<String> response = null;
 		try {
@@ -55,7 +68,7 @@ public class SearchService {
 			response = restTemplate.exchange(countryUrl, HttpMethod.GET, request, String.class);
 			
 			log.info(response.getBody());
-
+			
 			if (response.getStatusCodeValue() != 200) {
 				log.error("Error invoking UPA service, returned {} \n{}", response.getStatusCodeValue(),
 						response.getBody());
