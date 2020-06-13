@@ -1,0 +1,164 @@
+<div class="example-container mat-elevation-z8">
+        <div class="example-loading-shade"
+             *ngIf="isLoadingResults">
+          <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+        </div>
+        <div class="button-row">
+          <a mat-flat-button color="primary" [routerLink]="['/itinerary']"><mat-icon class=header1-icon>query_builder</mat-icon></a>
+        </div>
+        <div class=mat-elevation-z8>
+          <mat-table  [dataSource]="dataSource" class="example-table" matsort asc >
+            <!-- Product Name Column -->
+            <ng-container matColumnDef="itinerary_name">
+              <mat-header-cell *matHeaderCellDef class=header1-text>{{origin}}<mat-icon class=header1-icon>local_airport</mat-icon>{{destination}}</mat-header-cell>
+              <mat-cell *matCellDef="let row"><div *ngIf="row.brandName=='' || !row.brandName" class="nobrand">NO BRAND</div>
+                  <div *ngIf="row.upa"><p>{{row.brandName}}<br/><img class="imagestyle" src="{{row.upa.imageUrl}}"/></p></div>
+                  </mat-cell>
+            </ng-container>
+      
+            <ng-container matColumnDef="leg">
+              <mat-header-cell *matHeaderCellDef class=header1-text></mat-header-cell>
+              <mat-cell *matCellDef="let row" class=iconsize><p>LEG {{row.flightIndex}} :{{row.flightsegment.departureAirport}}-{{row.flightsegment.arrivalAirport}}
+                <br/>{{row.flightsegment.mktCarrier}} {{row.flightsegment.mktFlightNumber}} 
+                <br/>{{row.flightsegment.departureDate}}
+                <br/>{{row.flightsegment.cabin}}
+                <br/>
+                <br/><mat-icon class=flight-icon>wifi</mat-icon><mat-icon class=flight-icon>airline_seat_legroom_extra</mat-icon>
+                <mat-icon class=flight-icon>local_dining</mat-icon><mat-icon class=flight-icon>local_bar</mat-icon><mat-icon class=flight-icon>power</mat-icon> More ...</p>
+              
+              </mat-cell>
+           
+           
+              </ng-container>
+      
+            <!-- Product Price Column -->
+            <ng-container matColumnDef="Star1">
+              <mat-header-cell *matHeaderCellDef class=header-text>ONE</mat-header-cell>
+              <mat-cell *matCellDef="let row"><div *ngIf="row.shelf=='ONE'"><mat-icon>check_circle_outline</mat-icon></div></mat-cell>
+            </ng-container>
+            <!-- Product Price Column -->
+            <ng-container matColumnDef="Star2">
+              <mat-header-cell *matHeaderCellDef class=header-text>TWO</mat-header-cell>
+              <mat-cell *matCellDef="let row"><div *ngIf="row.shelf=='TWO'"><mat-icon>check_circle_outline</mat-icon></div></mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="Star3">
+              <mat-header-cell *matHeaderCellDef class=header-text>THREE</mat-header-cell>
+              <mat-cell *matCellDef="let row"><div *ngIf="row.shelf=='THREE'"><mat-icon>check_circle_outline</mat-icon></div></mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="Star4">
+              <mat-header-cell *matHeaderCellDef  class=header-text>FOUR</mat-header-cell>
+              <mat-cell *matCellDef="let row"><div *ngIf="row.shelf=='FOUR'"><mat-icon>check_circle_outline</mat-icon></div></mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="Star5">
+              <mat-header-cell *matHeaderCellDef class=header-text>FIVE</mat-header-cell>
+              <mat-cell *matCellDef="let row"><div *ngIf="row.shelf=='FIVE'"><mat-icon>check_circle_outline</mat-icon></div></mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="Star6">
+              <mat-header-cell *matHeaderCellDef class=header-text>SIX</mat-header-cell>
+              <mat-cell *matCellDef="let row"><div *ngIf="row.shelf=='SIX'"><mat-icon>check_circle_outline</mat-icon></div></mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="Other">
+              <mat-header-cell *matHeaderCellDef class=header-text><mat-icon class=header-icon>error</mat-icon></mat-header-cell>
+              <mat-cell *matCellDef="let row"><div *ngIf="row.shelf=='OTHER'"><mat-icon>check_circle_outline</mat-icon></div></mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="Details">
+                <mat-cell *matCellDef="let row">
+                    <mat-card >
+                    <mat-card-header>
+                    </mat-card-header>
+                    <mat-card-content  >
+                        <table class=drawer-table>
+                            <tr>
+                              <td class=drawer-text>AdvanceChange</td>
+                              <td class=drawer-text>{{row.element.drawers.advanceChange}}</td>
+                              <td class=drawer-text><div *ngIf="!row.element.drawers.advanceChange|| row.element.drawers.advanceChange=='n/a'"><mat-icon class=drawer-icon>clear</mat-icon></div>
+                                <div *ngIf="row.element.drawers.advanceChange && row.element.drawers.advanceChange!='n/a'"><mat-icon  class=drawer-icon>check</mat-icon></div>
+                              </td>
+                          </tr>
+                          <tr>
+                              <td class=drawer-text>BeverageAlcoholicCost</td>
+                              <td class=drawer-text>{{row.element.drawers.beverageAlcoholicCost}}</td>
+                              <td class=drawer-text>
+                                <div *ngIf="!row.element.drawers.beverageAlcoholicCost|| row.element.drawers.beverageAlcoholicCost=='n/a'"><mat-icon  class=drawer-icon>clear</mat-icon></div>
+                                <div *ngIf="row.element.drawers.beverageAlcoholicCost && row.element.drawers.beverageAlcoholicCost!='n/a'"><mat-icon class=drawer-icon>check</mat-icon></div>
+                              </td>
+                          </tr>
+                          <tr>
+                              <td class=drawer-text>CarryOnAllowance</td>
+                              <td class=drawer-text>{{row.element.drawers.carryOnAllowance}}</td>
+                              <td class=drawer-text>
+                                <div *ngIf="!row.element.drawers.carryOnAllowance|| row.element.drawers.carryOnAllowance=='n/a'"><mat-icon class=drawer-icon>clear</mat-icon></div>
+                                <div *ngIf="row.element.drawers.carryOnAllowance && row.element.drawers.carryOnAllowance!='n/a'"><mat-icon class=drawer-icon>check</mat-icon></div>
+                              </td>
+                          </tr>
+                          <tr>
+                              <td class=drawer-text>CheckedBagAllowance</td>
+                              <td class=drawer-text>{{row.element.drawers.checkedBagAllowance}}</td>
+                              <td class=drawer-text>
+                                <div *ngIf="!row.element.drawers.checkedBagAllowance|| row.element.drawers.checkedBagAllowance=='n/a'"><mat-icon class=drawer-icon>clear</mat-icon></div>
+                                <div *ngIf="row.element.drawers.checkedBagAllowance && row.element.drawers.checkedBagAllowance!='n/a'"><mat-icon class=drawer-icon>check</mat-icon></div>
+                              </td>
+                          </tr>
+                          <tr>
+                              <td class=drawer-text>FreshFoodType</td>
+                              <td class=drawer-text>{{row.element.drawers.freshFoodType}}</td>
+                              <td class=drawer-text><div *ngIf="!row.element.drawers.freshFoodType || row.element.drawers.freshFoodType=='n/a'"><mat-icon class=drawer-icon>clear</mat-icon></div>
+                                <div *ngIf="row.element.drawers.freshFoodType && row.element.drawers.freshFoodType!='n/a'"><mat-icon class=drawer-icon>check</mat-icon></div>
+                              </td>
+                              
+                          </tr>
+                          <tr>
+                              <td class=drawer-text>PowerType</td>
+                              <td class=drawer-text>{{row.element.drawers.powerType}}</td>
+                              <td class=drawer-text>
+                                <div *ngIf="!row.element.drawers.powerType || row.element.drawers.powerType=='n/a'"><mat-icon class=drawer-icon>clear</mat-icon></div>
+                                <div *ngIf="row.element.drawers.powerType && row.element.drawers.powerType!='n/a'"><mat-icon class=drawer-icon>check</mat-icon></div>
+                              </td>
+                          </tr>
+                          <tr>
+                              <td class=drawer-text>SeatPitch</td>
+                              <td class=drawer-text>{{row.element.drawers.seatPitch}}</td>
+                              <td class=drawer-text>
+                                <div *ngIf="!row.element.drawers.seatPitch || row.element.drawers.seatPitch=='n/a'"><mat-icon class=drawer-icon>clear</mat-icon></div>
+                                <div *ngIf="row.element.drawers.seatPitch && row.element.drawers.seatPitch!='n/a'"><mat-icon class=drawer-icon>check</mat-icon></div>
+                              </td>
+                          </tr>
+                          <tr>
+                              <td class=drawer-text>SeatType</td>
+                              <td class=drawer-text>{{row.element.drawers.seatType}}</td>
+                              <td class=drawer-text>
+                                <div *ngIf="!row.element.drawers.seatPitch || row.element.drawers.seatPitch=='n/a'"><mat-icon class=drawer-icon>clear</mat-icon></div>
+                                <div *ngIf="row.element.drawers.seatPitch && row.element.drawers.seatPitch!='n/a'"><mat-icon class=drawer-icon>check</mat-icon></div>
+                              </td>
+                          </tr>
+                          <tr>
+                              <td class=drawer-text>SeatSelection</td>
+                              <td class=drawer-text>{{row.element.drawers.seatSelection}}</td>
+                              <td class=drawer-text>
+                                <div *ngIf="!row.element.drawers.seatSelection || row.element.drawers.seatSelection=='n/a'"><mat-icon class=drawer-icon>clear</mat-icon></div>
+                                <div *ngIf="row.element.drawers.seatSelection && row.element.drawers.seatSelection!='n/a'"><mat-icon class=drawer-icon>check</mat-icon></div>
+                              </td>
+                          </tr>
+                          <tr>
+                              <td class=drawer-text>WifiQuality</td>
+                              <td class=drawer-text>{{row.element.drawers.wifiQuality}}</td>
+                              <td class=drawer-text>
+                                <div *ngIf="!row.element.drawers.wifiQuality || row.element.drawers.wifiQuality=='n/a'"><mat-icon class=drawer-icon>clear</mat-icon></div>
+                                <div *ngIf="row.element.drawers.wifiQuality && row.element.drawers.wifiQuality!='n/a'"><mat-icon class=drawer-icon>check</mat-icon></div>
+
+                              </td>
+                          </tr>
+                        </table>
+                      </mat-card-content>
+                  </mat-card>
+                </mat-cell>
+              </ng-container>
+            <mat-header-row *matHeaderRowDef="displayedColumns" class=header-row></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;" MatRipple class=element-row (click)="toggleChild(row.flightIndex)">
+            </mat-row>
+            <mat-row *matRowDef="let row; columns: ['Details']; when: isExpansionDetailRow"
+            [@detailExpand]="row.detailRow ? 'collapsed':'expanded'"> </mat-row>
+          </mat-table>
+        </div>
+      </div>
+      

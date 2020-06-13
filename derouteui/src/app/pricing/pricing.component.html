@@ -1,0 +1,22 @@
+<div class="example-container mat-elevation-z8">
+    <mat-card class="example-card">
+        <form [formGroup]="pricingForm" (ngSubmit)="onFormSubmit(pricingForm.value)">
+          <mat-form-field class="example-full-width">
+            <input matInput  placeholder="Origin"  formControlName="origin">
+          </mat-form-field>
+          <mat-icon>compare_arrows</mat-icon>&nbsp;&nbsp;&nbsp;&nbsp;
+          <mat-form-field class="example-full-width">
+              <input matInput  placeholder="Destination"  formControlName="destination">
+            </mat-form-field>
+            <mat-form-field>
+            <input matInput [matDatepicker]="picker" placeholder="2/01/2020">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+          <div class="button-row">
+            <button type="submit" mat-flat-button>SEARCH<mat-icon>view_list</mat-icon></button>
+          </div>
+        </form>
+    </mat-card>
+  </div>
+    

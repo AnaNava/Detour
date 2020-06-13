@@ -1,0 +1,254 @@
+<div class="example-container mat-elevation-z8">
+  <div class="example-loading-shade"
+       *ngIf="isLoadingResults">
+    <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+  </div>
+  <div class="button-row">
+    <a mat-flat-button color="primary" [routerLink]="['/pricing']"><mat-icon  class=header-icon>query_builder</mat-icon></a>
+  </div>
+  <div class=mat-elevation-z8>
+    <mat-table  [dataSource]="dataSource" class="example-table" matsort asc>
+      <!-- Product Name Column -->
+      <ng-container matColumnDef="itinerary_name">
+        <mat-header-cell *matHeaderCellDef class=header1-text>ORIGIN<mat-icon class=header-icon>local_airport</mat-icon>DESTINATION 
+          </mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          <p><img class="imagestylecarrier" src="{{getimageforcarrier(row.itineraryFlight.mktCarrier)}}"/>{{row.itineraryFlight.departureAirport}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<mat-icon>arrow_right_alt</mat-icon>&nbsp;&nbsp;&nbsp;{{row.itineraryFlight.arrivalAirport}} 
+        <br/><span class=iconsize>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{row.itineraryFlight.mktCarrier}} {{row.itineraryFlight.mktFlightNumber}}</span>
+          <br/><span class=iconsize>{{row.itineraryFlight.departureDateTime}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{row.itineraryFlight.arrivalDateTime}}</span></p></mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="leg">
+        <mat-header-cell *matHeaderCellDef class=header1-text></mat-header-cell>
+        <mat-cell *matCellDef="let row" class=iconsize>
+          <p>{{row.itineraryFlight.opCarrier}} {{row.itineraryFlight.opFlightNumber}} 
+            <br/>&nbsp;&nbsp;&nbsp;
+             <mat-icon class=flight-icon>wifi</mat-icon>
+              <mat-icon class=flight-icon>airline_seat_legroom_extra</mat-icon>
+          <mat-icon class=flight-icon>local_dining</mat-icon>
+          <mat-icon class=flight-icon>local_bar</mat-icon><mat-icon class=flight-icon>power</mat-icon>
+          </p>
+        </mat-cell>
+     
+     
+        </ng-container>
+
+      <!-- Product Price Column -->
+      <ng-container matColumnDef="Star1">
+        <mat-header-cell *matHeaderCellDef class=header-text><img class="imageheaderstyle"  src="assets/one_img.png"></mat-header-cell>
+        <mat-cell *matCellDef="let row"><div *ngIf="isEmptyObject(row.attributes.ONE)">
+          <p>${{row.attributes.ONE.amount}}<br/><span class=iconsize>
+            {{row.attributes.ONE.fareBasisCode}}
+        <br/><img class="imagestyle" src="{{isImgSrc(row.attributes.ONE.upaUrl,'ECON')}}"/>
+        <br/> {{row.attributes.ONE.cabin}}
+        <br/> {{row.attributes.ONE.brandName}}
+        </span></p></div></mat-cell>
+      </ng-container>
+      <!-- Product Price Column -->
+      <ng-container matColumnDef="Star2">
+        <mat-header-cell *matHeaderCellDef class=header-text><img class="imageheaderstyle"  src="assets/two_img.png"></mat-header-cell>
+        <mat-cell *matCellDef="let row"><div *ngIf="isEmptyObject(row.attributes.TWO)"><p>${{row.attributes.TWO.amount}}
+            <br/><span class=iconsize>
+                {{row.attributes.TWO.fareBasisCode}}
+                <br/><img class="imagestyle" src="{{isImgSrc(row.attributes.TWO.upaUrl,'ECONPLUS')}}"/>
+            <br/> {{row.attributes.TWO.cabin}}
+            <br/> {{row.attributes.TWO.brandName}}
+           
+            </span></p>
+        </div></mat-cell>
+      
+        </ng-container>
+      <ng-container matColumnDef="Star3">
+        <mat-header-cell *matHeaderCellDef class=header-text><img class="imageheaderstyle"  src="assets/three_img.png"></mat-header-cell>
+        <mat-cell *matCellDef="let row"><div *ngIf="isEmptyObject(row.attributes.THREE)"><p>${{row.attributes.THREE.amount}}
+            <br/><span class=iconsize>
+                {{row.attributes.THREE.fareBasisCode}}
+                <br/><img class="imagestyle" src="{{isImgSrc(row.attributes.THREE.upaUrl,'PREMECON')}}"/>
+            <br/> {{row.attributes.THREE.cabin}}
+            <br/> {{row.attributes.THREE.brandName}}
+            
+            </span></p>
+        </div></mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="Star4">
+        <mat-header-cell *matHeaderCellDef  class=header-text><img class="imageheaderstyle"  src="assets/four_img.png"></mat-header-cell>
+        <mat-cell *matCellDef="let row"><div *ngIf="isEmptyObject(row.attributes.FOUR)"><p>${{row.attributes.FOUR.amount}}
+            <br/><span class=iconsize>
+                {{row.attributes.FOUR.fareBasisCode}}
+                <br/><img class="imagestyle" src="{{isImgSrc(row.attributes.FOUR.upaUrl,'BUSINESS')}}"/>
+            <br/> {{row.attributes.FOUR.cabin}}
+            <br/> {{row.attributes.FOUR.brandName}}
+            
+            </span></p>
+        </div></mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="Star5">
+        <mat-header-cell *matHeaderCellDef class=header-text><img class="imageheaderstyle"  src="assets/five_img.png"></mat-header-cell>
+        <mat-cell *matCellDef="let row"><div *ngIf="isEmptyObject(row.attributes.FIVE)"><p>${{row.attributes.FIVE.amount}}
+            <br/><span class=iconsize>
+                {{row.attributes.FIVE.fareBasisCode}}
+                <br/><img class="imagestyle" src="{{isImgSrc(row.attributes.FIVE.upaUrl,'FIRST')}}"/>
+            <br/> {{row.attributes.FIVE.cabin}}
+            <br/> {{row.attributes.FIVE.brandName}}
+            </span></p>
+        </div></mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="Star6">
+        <mat-header-cell *matHeaderCellDef class=header-text><img class="imageheaderstyle"  src="assets/six_img.png"></mat-header-cell>
+        <mat-cell *matCellDef="let row"><div *ngIf="isEmptyObject(row.attributes.SIX)"><p>${{row.attributes.SIX.amount}}
+            <br/><span class=iconsize>
+                {{row.attributes.SIX.fareBasisCode}}
+                <br/><img class="imagestyle" src="{{isImgSrc(row.attributes.SIX.upaUrl,'FIRSTPLUS')}}"/>
+            <br/> {{row.attributes.SIX.cabin}}
+            <br/> {{row.attributes.SIX.brandName}}
+            
+            </span></p>
+        </div></mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="Other">
+        <mat-header-cell *matHeaderCellDef class=header-text>NO SHELF</mat-header-cell>
+        <mat-cell *matCellDef="let row"><div *ngIf="isEmptyObject(row.attributes.OTHER)"><p>${{row.attributes.OTHER.amount}}
+            <br/><span class=iconsize>
+                {{row.attributes.OTHER.fareBasisCode}}
+                <br/><img class="imagestyle" src="{{row.attributes.OTHER.upaUrl}}"/>
+            <br/> {{row.attributes.OTHER.cabin}}
+            <br/> {{row.attributes.OTHER.brandName}}
+            </span></p>
+          </div></mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="Details">
+          <mat-cell *matCellDef="let row">
+                      <table class=drawer-table>
+                          <tr>
+                              <td   class=drawer-text></td>
+                            <td   class=drawer-header><img class="imagedrawerstyle" src="assets/same-day-change.png"/>AdvanceChange</td>
+                            <td   class=drawer-text><div *ngIf="isEmptyObject(row.element.attributes.ONE)">{{row.element.attributes.ONE.drawer.advanceChange}}</div></td>
+                            <td   class=drawer-text><div *ngIf="isEmptyObject(row.element.attributes.TWO)">{{row.element.attributes.TWO.drawer.advanceChange}}</div></td>
+                            <td   class=drawer-text><div *ngIf="isEmptyObject(row.element.attributes.THREE)">{{row.element.attributes.THREE.drawer.advanceChange}}</div></td>
+                            <td   class=drawer-text><div *ngIf="isEmptyObject(row.element.attributes.FOUR)">{{row.element.attributes.FOUR.drawer.advanceChange}}</div></td>
+                            <td   class=drawer-text><div *ngIf="isEmptyObject(row.element.attributes.FIVE)">{{row.element.attributes.FIVE.drawer.advanceChange}}</div></td>
+                            <td   class=drawer-text><div *ngIf="isEmptyObject(row.element.attributes.SIX)">{{row.element.attributes.SIX.drawer.advanceChange}}</div></td>
+                            <td   class=drawer-text><div *ngIf="isEmptyObject(row.element.attributes.OTHER)">{{row.element.attributes.OTHER.drawer.advanceChange}}</div></td>
+                        </tr>
+                        <tr>
+                            <td   class=drawer-text></td>
+                            <td class=drawer-header><mat-icon class=flight-icon>local_bar</mat-icon>BeverageAlcoholicCost</td>
+                            <td class=drawer-text><div *ngIf="isEmptyObject(row.element.attributes.ONE)">{{row.element.attributes.ONE.drawer.beverageAlcoholicCost}}</div></td>
+                            <td class=drawer-text><div *ngIf="isEmptyObject(row.element.attributes.TWO)">{{row.element.attributes.TWO.drawer.beverageAlcoholicCost}}</div></td>
+                            <td class=drawer-text><div *ngIf="isEmptyObject(row.element.attributes.THREE)">{{row.element.attributes.THREE.drawer.beverageAlcoholicCost}}</div></td>
+                            <td class=drawer-text><div *ngIf="isEmptyObject(row.element.attributes.FOUR)">{{row.element.attributes.FOUR.drawer.beverageAlcoholicCost}}</div></td>
+                            <td class=drawer-text><div *ngIf="isEmptyObject(row.element.attributes.FIVE)">{{row.element.attributes.FIVE.drawer.beverageAlcoholicCost}}</div></td>
+                            <td class=drawer-text><div *ngIf="isEmptyObject(row.element.attributes.SIX)">{{row.element.attributes.SIX.drawer.beverageAlcoholicCost}}</div></td>
+                            <td class=drawer-text><div *ngIf="isEmptyObject(row.element.attributes.OTHER)">{{row.element.attributes.OTHER.drawer.beverageAlcoholicCost}}</div></td>
+                            
+                        </tr>
+                        <tr>
+                            <td   class=drawer-text></td>
+                            <td class=drawer-header>CarryOnAllowance</td>
+                            <td class=drawer-text><div *ngIf="isEmptyObject(row.element.attributes.ONE)">{{row.element.attributes.ONE.drawer.carryOnAllowance}}</div></td>
+                            <td class=drawer-text><div *ngIf="isEmptyObject(row.element.attributes.TWO)">{{row.element.attributes.TWO.drawer.carryOnAllowance}}</div></td>
+                            <td class=drawer-text><div *ngIf="isEmptyObject(row.element.attributes.THREE)">{{row.element.attributes.THREE.drawer.carryOnAllowance}}</div></td>
+                            <td class=drawer-text><div *ngIf="isEmptyObject(row.element.attributes.FOUR)">{{row.element.attributes.FOUR.drawer.carryOnAllowance}}</div></td>
+                            <td class=drawer-text><div *ngIf="isEmptyObject(row.element.attributes.FIVE)">{{row.element.attributes.FIVE.drawer.carryOnAllowance}}</div></td>
+                            <td class=drawer-text><div *ngIf="isEmptyObject(row.element.attributes.SIX)">{{row.element.attributes.SIX.drawer.carryOnAllowance}}</div></td>
+                            <td class=drawer-text><div *ngIf="isEmptyObject(row.element.attributes.OTHER)">{{row.element.attributes.OTHER.drawer.carryOnAllowance}}</div></td>
+                            
+                        </tr>
+                        <tr>
+                            <td   class=drawer-text></td>
+                            <td class=drawer-header><img class="imagedrawerstyle" src="assets/checked-bag-allowance.png"/>CheckedBagAllowance</td>
+                            <td class=drawer-text><div *ngIf="isEmptyObject(row.element.attributes.ONE)">{{row.element.attributes.ONE.drawer.checkedBagAllowance}}</div></td>
+                            <td class=drawer-text><div *ngIf="isEmptyObject(row.element.attributes.TWO)">{{row.element.attributes.TWO.drawer.checkedBagAllowance}}</div></td>
+                            <td class=drawer-text><div *ngIf="isEmptyObject(row.element.attributes.THREE)">{{row.element.attributes.THREE.drawer.checkedBagAllowance}}</div></td>
+                            <td class=drawer-text><div *ngIf="isEmptyObject(row.element.attributes.FOUR)">{{row.element.attributes.FOUR.drawer.checkedBagAllowance}}</div></td>
+                            <td class=drawer-text><div *ngIf="isEmptyObject(row.element.attributes.FIVE)">{{row.element.attributes.FIVE.drawer.checkedBagAllowance}}</div></td>
+                            <td class=drawer-text><div *ngIf="isEmptyObject(row.element.attributes.SIX)">{{row.element.attributes.SIX.drawer.checkedBagAllowance}}</div></td>
+                            <td class=drawer-text><div *ngIf="isEmptyObject(row.element.attributes.OTHER)">{{row.element.attributes.OTHER.drawer.checkedBagAllowance}}</div></td>
+                            
+                        </tr>
+                        <tr>
+                            <td   class=drawer-text></td>
+                            <td class=drawer-header><mat-icon class=flight-icon>local_dining</mat-icon>FreshFood</td>
+                            <td class=drawer-text><div *ngIf="isEmptyObject(row.element.attributes.ONE)">{{row.element.attributes.ONE.drawer.freshFoodType}}</div></td>
+                            <td class=drawer-text><div *ngIf="isEmptyObject(row.element.attributes.TWO)">{{row.element.attributes.TWO.drawer.freshFoodType}}</div></td>
+                            <td class=drawer-text><div *ngIf="isEmptyObject(row.element.attributes.THREE)">{{row.element.attributes.THREE.drawer.freshFoodType}}</div></td>
+                            <td class=drawer-text><div *ngIf="isEmptyObject(row.element.attributes.FOUR)">{{row.element.attributes.FOUR.drawer.freshFoodType}}</div></td>
+                            <td class=drawer-text><div *ngIf="isEmptyObject(row.element.attributes.FIVE)">{{row.element.attributes.FIVE.drawer.freshFoodType}}</div></td>
+                            <td class=drawer-text><div *ngIf="isEmptyObject(row.element.attributes.SIX)">{{row.element.attributes.SIX.drawer.freshFoodType}}</div></td>
+                            <td class=drawer-text><div *ngIf="isEmptyObject(row.element.attributes.OTHER)">{{row.element.attributes.OTHER.drawer.freshFoodType}}</div></td>
+                            
+                        </tr>
+                        <tr>
+                            <td   class=drawer-text></td>
+                            <td class=drawer-header><mat-icon class=flight-icon>power</mat-icon>Power</td>
+                           
+                            <td class=drawer-text><div *ngIf="isEmptyObject(row.element.attributes.ONE)">{{row.element.attributes.ONE.drawer.powerType}}</div></td>
+                            <td class=drawer-text><div *ngIf="isEmptyObject(row.element.attributes.TWO)">{{row.element.attributes.TWO.drawer.powerType}}</div></td>
+                            <td class=drawer-text><div *ngIf="isEmptyObject(row.element.attributes.THREE)">{{row.element.attributes.THREE.drawer.powerType}}</div></td>
+                            <td class=drawer-text><div *ngIf="isEmptyObject(row.element.attributes.FOUR)">{{row.element.attributes.FOUR.drawer.powerType}}</div></td>
+                            <td class=drawer-text><div *ngIf="isEmptyObject(row.element.attributes.FIVE)">{{row.element.attributes.FIVE.drawer.powerType}}</div></td>
+                            <td class=drawer-text><div *ngIf="isEmptyObject(row.element.attributes.SIX)">{{row.element.attributes.SIX.drawer.powerType}}</div></td>
+                            <td class=drawer-text><div *ngIf="isEmptyObject(row.element.attributes.OTHER)">{{row.element.attributes.OTHER.drawer.powerType}}</div></td>
+                           
+                        </tr>
+                        <tr>
+                            <td   class=drawer-text></td>
+                            <td class=drawer-header>SeatPitch</td>
+                            
+                            <td class=drawer-text><div *ngIf="isEmptyObject(row.element.attributes.ONE)">{{row.element.attributes.ONE.drawer.seatPitch}}</div></td>
+                            <td class=drawer-text><div *ngIf="isEmptyObject(row.element.attributes.TWO)">{{row.element.attributes.TWO.drawer.seatPitch}}</div></td>
+                            <td class=drawer-text><div *ngIf="isEmptyObject(row.element.attributes.THREE)">{{row.element.attributes.THREE.drawer.seatPitch}}</div></td>
+                            <td class=drawer-text><div *ngIf="isEmptyObject(row.element.attributes.FOUR)">{{row.element.attributes.FOUR.drawer.seatPitch}}</div></td>
+                            <td class=drawer-text><div *ngIf="isEmptyObject(row.element.attributes.FIVE)">{{row.element.attributes.FIVE.drawer.seatPitch}}</div></td>
+                            <td class=drawer-text><div *ngIf="isEmptyObject(row.element.attributes.SIX)">{{row.element.attributes.SIX.drawer.seatPitch}}</div></td>
+                            <td class=drawer-text><div *ngIf="isEmptyObject(row.element.attributes.OTHER)">{{row.element.attributes.OTHER.drawer.seatPitch}}</div></td>
+                        
+                        </tr>
+                        <tr>
+                            <td   class=drawer-text></td>
+                            <td class=drawer-header>SeatType</td>
+                       
+                            <td class=drawer-text><div *ngIf="isEmptyObject(row.element.attributes.ONE)">{{row.element.attributes.ONE.drawer.seatType}}</div></td>
+                            <td class=drawer-text><div *ngIf="isEmptyObject(row.element.attributes.TWO)">{{row.element.attributes.TWO.drawer.seatType}}</div></td>
+                            <td class=drawer-text><div *ngIf="isEmptyObject(row.element.attributes.THREE)">{{row.element.attributes.THREE.drawer.seatType}}</div></td>
+                            <td class=drawer-text><div *ngIf="isEmptyObject(row.element.attributes.FOUR)">{{row.element.attributes.FOUR.drawer.seatType}}</div></td>
+                            <td class=drawer-text><div *ngIf="isEmptyObject(row.element.attributes.FIVE)">{{row.element.attributes.FIVE.drawer.seatType}}</div></td>
+                            <td class=drawer-text><div *ngIf="isEmptyObject(row.element.attributes.SIX)">{{row.element.attributes.SIX.drawer.seatType}}</div></td>
+                            <td class=drawer-text><div *ngIf="isEmptyObject(row.element.attributes.OTHER)">{{row.element.attributes.OTHER.drawer.seatType}}</div></td>
+                           
+                        </tr>
+                        <tr>
+                            <td   class=drawer-text></td>
+                            <td class=drawer-header><img class="imagedrawerstyle" src="assets/seat-selection.png"/>SeatSelection</td>
+                         
+                            <td class=drawer-text><div *ngIf="isEmptyObject(row.element.attributes.ONE)">{{row.element.attributes.ONE.drawer.seatSelection}}</div></td>
+                            <td class=drawer-text><div *ngIf="isEmptyObject(row.element.attributes.TWO)">{{row.element.attributes.TWO.drawer.seatSelection}}</div></td>
+                            <td class=drawer-text><div *ngIf="isEmptyObject(row.element.attributes.THREE)">{{row.element.attributes.THREE.drawer.seatSelection}}</div></td>
+                            <td class=drawer-text><div *ngIf="isEmptyObject(row.element.attributes.FOUR)">{{row.element.attributes.FOUR.drawer.seatSelection}}</div></td>
+                            <td class=drawer-text><div *ngIf="isEmptyObject(row.element.attributes.FIVE)">{{row.element.attributes.FIVE.drawer.seatSelection}}</div></td>
+                            <td class=drawer-text><div *ngIf="isEmptyObject(row.element.attributes.SIX)">{{row.element.attributes.SIX.drawer.seatSelection}}</div></td>
+                            <td class=drawer-text><div *ngIf="isEmptyObject(row.element.attributes.OTHER)">{{row.element.attributes.OTHER.drawer.seatSelection}}</div></td>
+                        </tr>
+                        <tr>
+                            <td   class=drawer-text></td>
+                            <td class=drawer-header><mat-icon class=flight-icon>wifi</mat-icon>Wifi</td>
+                       
+                            <td class=drawer-text><div *ngIf="isEmptyObject(row.element.attributes.ONE)">{{row.element.attributes.ONE.drawer.wifiQuality}}</div></td>
+                            <td class=drawer-text><div *ngIf="isEmptyObject(row.element.attributes.TWO)">{{row.element.attributes.TWO.drawer.wifiQuality}}</div></td>
+                            <td class=drawer-text><div *ngIf="isEmptyObject(row.element.attributes.THREE)">{{row.element.attributes.THREE.drawer.wifiQuality}}</div></td>
+                            <td class=drawer-text><div *ngIf="isEmptyObject(row.element.attributes.FOUR)">{{row.element.attributes.FOUR.drawer.wifiQuality}}</div></td>
+                            <td class=drawer-text><div *ngIf="isEmptyObject(row.element.attributes.FIVE)">{{row.element.attributes.FIVE.drawer.wifiQuality}}</div></td>
+                            <td class=drawer-text><div *ngIf="isEmptyObject(row.element.attributes.SIX)">{{row.element.attributes.SIX.drawer.wifiQuality}}</div></td>
+                            <td class=drawer-text><div *ngIf="isEmptyObject(row.element.attributes.OTHER)">{{row.element.attributes.OTHER.drawer.wifiQuality}}</div></td>
+                            
+                        </tr>
+                      </table>
+          </mat-cell>
+        </ng-container>
+      <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true" class=header-row ></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;" MatRipple class=element-row (click)="toggleChild(row.itineraryFlight)">
+      </mat-row>
+      <mat-row *matRowDef="let row; columns: ['Details']; when: isExpansionDetailRow"
+      [@detailExpand]="row.detailRow ? 'collapsed':'expanded'"> </mat-row>
+    </mat-table>
+</div>

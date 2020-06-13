@@ -1,0 +1,20 @@
+<div class="example-container mat-elevation-z8">
+<mat-card class="example-card">
+    <form [formGroup]="itineraryForm" (ngSubmit)="onFormSubmit(itineraryForm.value)">
+      <mat-form-field class="example-full-width">
+        <input matInput  placeholder="ITINERARY STRING" value={{selectedItin.name}} formControlName="itinerary_string">
+      </mat-form-field>
+      <div class="button-row">
+        <button type="submit" mat-flat-button>GET SHELVES<mat-icon>view_list</mat-icon></button>
+      </div>
+    </form>
+        <p><mat-icon>help</mat-icon>Copy and Edit</p>
+        <ul class="itins">
+         <li *ngFor="let itin of itins" (click)="onSelect(itin)">
+            {{itin.name}}
+          </li>
+        </ul>
+</mat-card>
+</div>
+
+
