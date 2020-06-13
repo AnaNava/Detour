@@ -9,10 +9,10 @@ spring:
     allow-bean-definition-overriding: true
   data:
     mongodb:
-      host: anandhi-test-db.cluster-cg7wesluoa8o.us-east-1.docdb.amazonaws.com
+      host: anandhi-test-db.cg7wesluoa8o.us-east-1.docdb.amazonaws.com
       port: 27017
       username: anandhi
       password: test1234
-      database: detourdb
+      database: country
       
       

@@ -48,7 +48,7 @@ public class MongoConfig {
 
     
     private String getMongoUri() {
-        String template = "mongodb://%s:%s@%s:%s/%s?replicaSet=rs0&readPreference=secondaryPreferred&retryWrites=false";
+        String template = "mongodb://%s:%s@%s:%s/%s?retryWrites=false";
     	//String template = "mongodb://%s:%s@%s:%s/%s?replicaSet=rs0&readPreference=secondaryPreferred&retryWrites=false";
     	String connectionString = String.format(template, mongoUser, mongoPassword, mongoHost, mongoPort, mongoDatabase);
         System.out.println("******  " + connectionString);
