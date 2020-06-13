@@ -27,10 +27,10 @@ public class MongoConfig {
 	@Value("${spring.data.mongodb.database}")
 	private String mongoDatabase;
 	
-	@Value("${spring.data.mongodb.username")
+	@Value("${spring.data.mongodb.username}")
 	private String mongoUser;
 	
-	@Value("${spring.data.mongodb.password")
+	@Value("${spring.data.mongodb.password}")
 	private String mongoPassword;
 	
 	@Bean
@@ -50,8 +50,9 @@ public class MongoConfig {
 
     
     private String getMongoUri() {
-        String template = "mongodb://%s:%s@%s/%s?replicaSet=rs0&readPreference=secondaryPreferred&retryWrites=false";
-        String connectionString = String.format(template, mongoUser, mongoPassword, mongoHost, mongoDatabase);
+        //String template = "mongodb://%s:%s@%s:%s/%s?ssl=true&ssl_ca_certs=rds-combined-ca-bundle.pem&replicaSet=rs0&readPreference=secondaryPreferred&retryWrites=false";
+    	String template = "mongodb://%s:%s@%s:%s/%s?replicaSet=rs0&readPreference=secondaryPreferred&retryWrites=false";
+    	String connectionString = String.format(template, mongoUser, mongoPassword, mongoHost, mongoPort, mongoDatabase);
         System.out.println("******  " + connectionString);
         return connectionString;
     }
