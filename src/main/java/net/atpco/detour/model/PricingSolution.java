@@ -22,7 +22,7 @@ public class PricingSolution {
     private String carrier;
 	private double amount;
 	private String currency;
-	private ShoppingAttributes shoppingAttributes;
+	private List<Fares> farse;
 	private List<Flights> flightsList;
 	private String ngsRating;
 	private List<AirportInfo> airportInfoList;

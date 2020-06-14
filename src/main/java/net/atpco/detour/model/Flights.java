@@ -16,7 +16,7 @@ import lombok.Setter;
 public class Flights {
 	private String flightNumber;
 	private String cabin;
-	private String ammenities; //object
+	private Ammenities ammenities; //objectl,m,n
 	//Restrictions
 	private String restrictions;
 }

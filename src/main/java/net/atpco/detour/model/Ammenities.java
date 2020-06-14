@@ -13,14 +13,8 @@ import lombok.Setter;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Fares {	
-
-	private String fareClass;
-	private Double amount;
-	private String currency;
-	private String rbd;
-	private String brand;
-	private UTAInfo utaInfo;	
-
-	
+public class Ammenities {
+	public String seatPitch;
+	public String seatType;
+	public String directAisleAccess;
 }
