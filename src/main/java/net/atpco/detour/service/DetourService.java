@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import net.atpco.detour.model.CountryInfo;
 import net.atpco.detour.model.DetourRequest;
 import net.atpco.detour.model.DetourResponse;
 import net.atpco.detour.model.PricingSolution;
@@ -45,6 +46,8 @@ public class DetourService {
 			
 			List<PricingSolution> solutions = loader.loadPS(detourReq.getOrigin()+destination);
 			response.setSolutions(solutions);
+            List<CountryInfo> countryInfo = detourRepository.getCountry("US");
+		    log.info("CountryInfo - " + countryInfo.get(0).toString());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
