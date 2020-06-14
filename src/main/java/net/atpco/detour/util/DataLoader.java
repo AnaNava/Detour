@@ -73,7 +73,7 @@ public class DataLoader {
 				sol.setCountryCode(countryCode);
 				sol.setCountryInfo(countryInfo);
 				sol.setDestinationCityInfo(destinationCityInfo);
-				sol.setAmountWithCurrency(amount);
+				sol.setAmount(amount);
 				sol.setNgsRating(portionShelves);
 
 				Ammenities ammenities = new Ammenities();
