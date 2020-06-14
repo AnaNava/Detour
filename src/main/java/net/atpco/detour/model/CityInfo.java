@@ -18,14 +18,13 @@ import lombok.Setter;
 @JsonInclude(Include.NON_NULL)
 public class CityInfo {
 	
-	public String cityName;
-	public String airportCode;
 	public String cityCode;
+	public String cityName;
 	public String countryCode;
 	public String status;
 	public CategoryInfo categoryInfo;
 	public CityRestriction cityRestriction;
-	public String endDate;
+	public String dateOpen;
 	private String rating;
 	private String rupa;
 

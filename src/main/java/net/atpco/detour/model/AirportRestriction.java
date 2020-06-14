@@ -22,5 +22,5 @@ import lombok.Setter;
 public class AirportRestriction {
 
 	public List<String> text = null;
-
+	public String additionalRestrictionText;
 }
