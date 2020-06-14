@@ -23,5 +23,7 @@ public class CityInfo {
 	public CategoryInfo categoryInfo;
 	public CityRestriction cityRestriction;
 	public String endDate;
+	private String rating;
+	private String rupa;
 
 }

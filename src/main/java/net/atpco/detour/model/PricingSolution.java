@@ -27,7 +27,7 @@ public class PricingSolution {
 	private List<Flights> flightsList;
 	private String ngsRating;
 	private List<AirportInfo> airportInfoList;
-	private DestinationInfo destinationInfo;
+	private CityInfo destinationCityInfo;
 	private CountryInfo countryInfo;
 	private String countryCode;
 }

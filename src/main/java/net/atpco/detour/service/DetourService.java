@@ -25,9 +25,7 @@ public class DetourService {
 	private static Map<String, List<String>> destinationMap = null;
 
 	public DetourResponse processRequest(DetourRequest detourReq) {
-
-		DetourResponse response = getDetourResponse(detourReq);
-		// detourRepository.insert(detourReq, "RequestCoolection");
+		DetourResponse response = getDetourResponse(detourReq);	// detourRepository.insert(detourReq, "RequestCoolection");
 		return response;
 	}
 

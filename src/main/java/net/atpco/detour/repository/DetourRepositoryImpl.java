@@ -11,35 +11,43 @@ import org.springframework.stereotype.Repository;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import net.atpco.detour.model.AirportInfo;
+import net.atpco.detour.model.CityInfo;
 import net.atpco.detour.model.CountryInfo;
-import net.atpco.detour.model.DetourRequest;
 
 
 @Repository
 @AllArgsConstructor
 @Slf4j
 public class DetourRepositoryImpl implements DetourRepository {
-    @Autowired
+    
+	@Autowired
     private MongoTemplate template;
 
-	@Override
-	public DetourRequest insert(DetourRequest detourReq, String collectionName) {
-		return (DetourRequest) template.insert(detourReq, collectionName);
-	}
-
-	@Override
-	public void addJSONResponse(Document myDoc, String collectionName) {
-		log.info("Adding JSON as document");
-		
-		template.save(myDoc, collectionName);
-		
-	}
 
 	@Override
 	public List<CountryInfo> getCountry(String countryCode) {
 		Query query = new Query().addCriteria(Criteria.where("countryCode").is(countryCode));
-		log.info("Exists   -   " + template.collectionExists("CountryInfo"));
         return template.find(query, CountryInfo.class, "CountryInfo");
+	}
+
+	@Override
+	public List<CityInfo> getCity(String cityCode) {
+		Query query = new Query().addCriteria(Criteria.where("cityyCode").is(cityCode));
+        return template.find(query, CityInfo.class, "CityInfo");
+	}
+
+	@Override
+	public List<AirportInfo> getAirport(String airportCode) {
+		Query query = new Query().addCriteria(Criteria.where("airportCode").is(airportCode));
+        return template.find(query, AirportInfo.class, "AirportInfo");
+	}
+	
+
+	@Override
+	public void addJSONResponse(Document myDoc, String collectionName) {
+		log.info("Adding JSON as document");	
+		template.save(myDoc, collectionName);
 	}
   
 }

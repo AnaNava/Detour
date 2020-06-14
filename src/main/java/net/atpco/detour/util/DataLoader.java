@@ -11,6 +11,7 @@ import java.util.Map;
 import au.com.bytecode.opencsv.CSVReader;
 import lombok.extern.slf4j.Slf4j;
 import net.atpco.detour.model.Ammenities;
+import net.atpco.detour.model.CityInfo;
 import net.atpco.detour.model.CountryInfo;
 import net.atpco.detour.model.Fares;
 import net.atpco.detour.model.Flights;
@@ -38,6 +39,16 @@ public class DataLoader {
 			}
 			log.info("CountryInfo - " + countryInfo);
 		}
+		
+		CityInfo destinationCityInfo = null;
+		if (destinationCityInfo != null) {
+			List<CityInfo> cityInfos = detourRepository.getCity(destination);
+			if (cityInfos.size() > 0) {
+				destinationCityInfo = cityInfos.get(0);
+			}
+			log.info("CityInfo - " + destinationCityInfo);
+		}
+	
 		try (CSVReader csvReader = new CSVReader(new InputStreamReader(shoppingRes))) {
 			csvReader.readNext(); // skip header line
 			String[] line;
@@ -61,6 +72,7 @@ public class DataLoader {
 				PricingSolution sol = new PricingSolution();
 				sol.setCountryCode(countryCode);
 				sol.setCountryInfo(countryInfo);
+				sol.setDestinationCityInfo(destinationCityInfo);
 				sol.setAmountWithCurrency(amount);
 				sol.setNgsRating(portionShelves);
 
