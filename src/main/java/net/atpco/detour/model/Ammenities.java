@@ -14,7 +14,10 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Ammenities {
-	public String seatPitch;
-	public String seatType;
-	public String directAisleAccess;
+	private String seatPitch;
+	private String seatType;
+	private String directAisleAccess;
+	private String wifi_quality;
+	private String fresh_food_quality;
+	
 }

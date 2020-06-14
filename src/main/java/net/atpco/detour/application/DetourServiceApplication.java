@@ -1,11 +1,14 @@
 package net.atpco.detour.application;
 
+import java.io.IOException;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.scheduling.annotation.EnableAsync;
 
 import lombok.extern.slf4j.Slf4j;
+import net.atpco.detour.util.DataLoader;
 
 @EnableMongoRepositories
 @SpringBootApplication(scanBasePackages = {"net.atpco.detour.*"})
@@ -16,6 +19,13 @@ public class DetourServiceApplication {
 	public static void main(String[] args) {
 //		SSLContextHelper.setSslProperties();
 		SpringApplication.run(DetourServiceApplication.class, args);
+//		DataLoader loader = new DataLoader();
+//		try {
+//			loader.load();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//		
 	}
 	
 //	

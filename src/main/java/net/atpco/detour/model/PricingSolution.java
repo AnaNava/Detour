@@ -21,8 +21,8 @@ public class PricingSolution {
     private String destination;
     private String carrier;
 	private double amount;
-	private String currency;
-	private List<Fares> farse;
+	private String amountWithCurrency;
+	private List<Fares> fares;
 	private List<Flights> flightsList;
 	private String ngsRating;
 	private List<AirportInfo> airportInfoList;

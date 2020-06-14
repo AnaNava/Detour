@@ -23,5 +23,12 @@ public class ResearchController {
         return ResponseEntity.ok("OK");
     }
 
+	@RequestMapping("/getShoppingResponse")
+    public ResponseEntity<String> getShoppingResponse(String carrier) {
+        log.info("DetourController - processRequest");
+        HttpEntity<String> response =  searchService.getCountryData(carrier);
+        return ResponseEntity.ok("OK");
+    }
+
    
 }

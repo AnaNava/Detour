@@ -22,7 +22,7 @@ public class CommonController {
 
 
 
-	@RequestMapping("/detour")
+	@RequestMapping("/searchS")
     public String detour() {
         log.info("calling search service");
         searchService.search();
