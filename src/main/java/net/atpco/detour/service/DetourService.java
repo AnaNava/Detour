@@ -1,6 +1,7 @@
 package net.atpco.detour.service;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -21,37 +22,40 @@ import net.atpco.detour.util.DataLoader;
 public class DetourService {
 
 	private DetourRepository detourRepository;
-	private static Map<String, List<String>> destinationMap = null; 
-	
+	private static Map<String, List<String>> destinationMap = null;
+
 	public DetourResponse processRequest(DetourRequest detourReq) {
-		
+
 		DetourResponse response = getDetourResponse(detourReq);
-//		detourRepository.insert(detourReq, "RequestCoolection");
+		// detourRepository.insert(detourReq, "RequestCoolection");
 		return response;
 	}
 
 	private DetourResponse getDetourResponse(DetourRequest detourReq) {
 		DetourResponse response = new DetourResponse();
 		response.setRequest(detourReq);
-		
+
 		DataLoader loader = new DataLoader();
 		try {
 			if (destinationMap == null) {
 				destinationMap = loader.loadCityPair();
-				log.info("Destination map {}" , destinationMap);
+				log.info("Destination map {}", destinationMap);
 			}
 			List<String> destinations = destinationMap.get(detourReq.getOrigin());
-			log.info("destinations {}" , destinations);
-			String destination = destinations.size() >0 ? destinations.get(0) : "ORD";
-			List<PricingSolution> solutions = loader.loadPS(detourReq.getOrigin()+destination, detourRepository);
-			response.setSolutions(solutions);          
+			log.info("destinations {}", destinations);
+			List<PricingSolution> solutions = new ArrayList<>();
+			for (String destination : destinations) {
+				log.info("Data Loading {}, {}", detourReq.getOrigin(), destination);
+				solutions.addAll(loader.loadPS(detourReq.getOrigin(), destination, detourRepository));
+
+			}
+			response.setSolutions(solutions);
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-		
+
 		return response;
 	}
-	
-	
+
 }

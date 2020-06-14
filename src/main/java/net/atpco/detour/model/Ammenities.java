@@ -16,6 +16,7 @@ import lombok.Setter;
 public class Ammenities {
 	private String seatPitch;
 	private String seatType;
+	private String seatSelection;
 	private String directAisleAccess;
 	private String wifi_quality;
 	private String fresh_food_quality;

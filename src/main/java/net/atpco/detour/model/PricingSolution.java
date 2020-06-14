@@ -29,5 +29,5 @@ public class PricingSolution {
 	private List<AirportInfo> airportInfoList;
 	private DestinationInfo destinationInfo;
 	private CountryInfo countryInfo;
-	
+	private String countryCode;
 }
