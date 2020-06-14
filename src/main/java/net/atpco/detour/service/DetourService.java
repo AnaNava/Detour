@@ -53,7 +53,7 @@ public class DetourService {
 					//Call Shopping API
 					searchService.getShoppingResponse(detourReq, destination);
 				}
-				pricingSolIndex=sols.size();
+				pricingSolIndex +=sols.size();
 				solutions.addAll(sols);
 
 			}
