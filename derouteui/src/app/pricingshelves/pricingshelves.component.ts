@@ -25,8 +25,8 @@ import { FormControl } from '@angular/forms';
 
 export class PricingShelvesComponent implements OnInit {
 
-  displayedColumns: string[] = ['itinerary_name','leg','Star1','Star2','Star3','Star4','Star5','Star6','Other'];
-  drawerColumns: string[]=['DrawerName','Shelf1','Shelf2','Shelf3','Shelf4','Shelf5','Shelf6','Other']
+  displayedColumns: string[] = ['itinerary_name','Star1'];
+  drawerColumns: string[]=['DrawerName','Shelf1',]
   dataSource: MatTableDataSource<any>;
   drawerdataSource: MatTableDataSource<any>;
   response:Object[]=[];
@@ -49,11 +49,11 @@ export class PricingShelvesComponent implements OnInit {
 
   ngOnInit() {
     this.getod();
-    this.api.getpricingforitineraries(this.origin,this.destination)
+    this.api.getpricingsolutions(this.origin,this.destination)
       .subscribe(res => {
         this.response = res as Object [];
         console.log(this.response);
-        this.itineraryshelves=res["shelvedItineraries"];
+        this.itineraryshelves=res["solutions"];
         console.log(this.itineraryshelves);
         this.itineraryshelves.forEach(element => this.itineraryshelvesdetail.push(element,{ detailRow: true, element }));
         console.log(this.itineraryshelvesdetail);
@@ -76,8 +76,8 @@ export class PricingShelvesComponent implements OnInit {
 
     toggleChild(flightIndex:object)
     {
-      const foundElement = this.dataSource.data.find(elem => elem.element !== undefined && elem.element.itineraryFlight === flightIndex)    
-      //console.log("The found element is " + JSON.stringify(foundElement));
+      const foundElement = this.dataSource.data.find(elem => elem.element !== undefined && elem.element.pricingSolutionIndex === flightIndex)    
+      console.log("The found element is " + JSON.stringify(foundElement));
       const index = this.dataSource.data.indexOf(foundElement);
       this.dataSource.data[index].detailRow= ! this.dataSource.data[index].detailRow;
 
