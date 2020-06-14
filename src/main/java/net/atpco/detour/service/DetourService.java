@@ -45,6 +45,8 @@ public class DetourService {
 			
 			List<PricingSolution> solutions = loader.loadPS(detourReq.getOrigin()+destination);
 			response.setSolutions(solutions);
+            List<CountryInfo> countryInfo = detourRepository.getCountry("US");
+		    log.info("CountryInfo - " + countryInfo.get(0).toString());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -54,3 +56,5 @@ public class DetourService {
 	}
 
 }
+
+		log.info("CountryInfo - " + countryInfo.get(0).toString());
