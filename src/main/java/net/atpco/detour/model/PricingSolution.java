@@ -20,8 +20,7 @@ public class PricingSolution {
 	private String origin;
     private String destination;
     private String carrier;
-	private double amount;
-	private String amountWithCurrency;
+	private String amount;
 	private String departureDate;
 	private List<Fares> fares;
 	private List<Flights> flightsList;

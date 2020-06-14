@@ -23,6 +23,7 @@ public class DetourService {
 
 	private DetourRepository detourRepository;
 	private static Map<String, List<String>> destinationMap = null;
+	private SearchService searchService;
 
 	public DetourResponse processRequest(DetourRequest detourReq) {
 		DetourResponse response = getDetourResponse(detourReq);	// detourRepository.insert(detourReq, "RequestCoolection");
@@ -44,7 +45,12 @@ public class DetourService {
 			List<PricingSolution> solutions = new ArrayList<>();
 			for (String destination : destinations) {
 				log.info("Data Loading {}, {}", detourReq.getOrigin(), destination);
-				solutions.addAll(loader.loadPS(detourReq.getOrigin(), destination, detourRepository));
+				List<PricingSolution> sols = loader.loadPS(detourReq.getOrigin(), destination, detourRepository);
+				if (sols == null) {
+					//Call Shopping API
+					searchService.getShoppingResponse(detourReq, destination);
+				}
+				solutions.addAll(sols);
 
 			}
 			response.setSolutions(solutions);

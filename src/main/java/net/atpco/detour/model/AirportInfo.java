@@ -14,7 +14,6 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AirportInfo {
-
 	public String airportName;
 	public String airportCode;
 	public String cityCode;

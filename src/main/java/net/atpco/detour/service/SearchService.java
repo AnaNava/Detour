@@ -23,6 +23,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.atpco.detour.model.Country;
+import net.atpco.detour.model.DetourRequest;
 import net.atpco.detour.repository.DetourRepository;
 
 @Service
@@ -33,6 +34,7 @@ public class SearchService {
 	private DetourRepository detourRepository;
 
 	private final String countryUrl = "https://www.sitata.com/api/v2/countries/countryid/travel_restrictions";
+	private final String shoppingUrl = "http://localhost:8582/admin/ngs/gap-search";
 
 	public void search() {
 		// Call shopping engine API
@@ -41,6 +43,27 @@ public class SearchService {
 
 	}
 
+	public HttpEntity<String> getShoppingResponse(DetourRequest detourReq, String destination) {
+		RestTemplate restTemplate = new RestTemplate();
+		restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+
+		MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
+		headers.add("AUTHORIZATION", "TKN VXNlcnw1YWQ5NDNlMzdhZmY1YTBlZTlmNDk4ZmF8V21LaFJXeDM2SG9hRWV6Yi1uVVI=");
+		headers.add("Content-Type", "application/json");
+
+		log.info("Sending shopping request to {} ", shoppingUrl);
+
+		ResponseEntity<String> response = callShoppingAPI(restTemplate, headers, shoppingUrl, detourReq, destination);
+
+		Document myDoc = parseJSON(response);
+		myDoc.append("COUNTRY_CODE", detourReq);
+
+		// saveJSONtoDB(myDoc, "COUNTRY_RES");
+
+		return response;
+		
+	}
+	
 	public HttpEntity<String> getCountryData(String countryCode) {
 
 		RestTemplate restTemplate = new RestTemplate();
@@ -56,7 +79,7 @@ public class SearchService {
 
 		log.info("After replace {} to {} ", url);
 
-		ResponseEntity<String> response = callAPI(restTemplate, headers, url);
+		ResponseEntity<String> response = callCountryAPI(restTemplate, headers, url);
 
 		Document myDoc = parseJSON(response);
 		myDoc.append("COUNTRY_CODE", countryCode);
@@ -126,7 +149,37 @@ public class SearchService {
 		detourRepository.addJSONResponse(myDoc, collectionName);
 	}
 
-	private ResponseEntity<String> callAPI(RestTemplate restTemplate, MultiValueMap<String, String> headers,
+	private ResponseEntity<String> callShoppingAPI(RestTemplate restTemplate, MultiValueMap<String, String> headers,
+			String url, DetourRequest detourReq, String destination) {
+		
+		String body = getShoppingRequestBody(detourReq, destination);
+		HttpEntity<String> request = new HttpEntity<>("", headers);
+		ResponseEntity<String> response = null;
+		try {
+			log.info("Sending country request for  {} ", url);
+
+			response = restTemplate.exchange(url, HttpMethod.POST, request, String.class);
+
+			log.info(response.getBody());
+
+			if (response.getStatusCodeValue() != 200) {
+				log.error("Error invoking UPA service, returned {} \n{}", response.getStatusCodeValue(),
+						response.getBody());
+			}
+
+		} catch (Exception ex) {
+			log.error("Error executing the UPA query", ex);
+		}
+		return response;
+	}
+	
+	
+	private String getShoppingRequestBody(DetourRequest detourReq, String destination) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	private ResponseEntity<String> callCountryAPI(RestTemplate restTemplate, MultiValueMap<String, String> headers,
 			String countryUrl) {
 		HttpEntity<String> request = new HttpEntity<>("", headers);
 		ResponseEntity<String> response = null;
