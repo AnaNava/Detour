@@ -1,0 +1,57 @@
+.imgbanner
+{
+    width:100%;
+    max-width: 100%;
+}
+
+.mat-tab-link
+{
+    font-size: 34px;
+    font:gibson;
+    align-content: center;
+    width: 50%;
+    
+}
+
+.mat-card-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  .mat-input-wrapper{
+    width:400px !important;
+  }
+
+  .mat-flat-button
+{
+
+    font:Gibson;
+    font-size:25px;
+    width:70%;
+   line-height: 200%; 
+}
+
+.card {
+    width: 100%;
+    margin: 2em;
+    height: 100%;
+    background-image: url('../../assets//Background-2.png') no-repeat center center fixed;
+    background-size: cover;
+    background-position-y: -20vh;
+}
+
+.parent
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.mat-button
+{
+    color:whitesmoke;
+
+
+}
+

@@ -1,20 +1,88 @@
+
+<img class="imgbanner" src="assets/Banner-1.png">
 <div class="example-container mat-elevation-z8">
     <mat-card class="example-card">
         <form [formGroup]="pricingForm" (ngSubmit)="onFormSubmit(pricingForm.value)">
           <mat-form-field class="example-full-width">
-            <input matInput  placeholder="Origin"  formControlName="origin">
+            <input matInput  placeholder="Where are you now?"  formControlName="origin">
           </mat-form-field>
-          <mat-icon>compare_arrows</mat-icon>&nbsp;&nbsp;&nbsp;&nbsp;
+          <br/>
           <mat-form-field class="example-full-width">
-              <input matInput  placeholder="Destination"  formControlName="destination">
+              <input matInput  placeholder="Where do you want to go"  formControlName="destination">
             </mat-form-field>
+            <br/>
+            <mat-grid-list cols="3" rowHeight="6:4">
+              <mat-grid-tile>
+                <mat-card-content>
+                  <img class="tile-image" src="assets/harshil-gudka-kfxEUCTUeyg-unsplash.jpg">
+                  <br/>
+                  <div class="form-check">
+                    <input type="radio" class="form-check-input" id="materialUnchecked" name="materialExampleRadios" mdbInput>
+                    <label class="form-check-label" for="materialUnchecked">Exotic,destinations and animals</label>
+                  </div>
+                </mat-card-content>
+              </mat-grid-tile>
+              <mat-grid-tile>
+                <mat-card-content>
+                <img class="tile-image" src="assets/chris-karidis-nnzkZNYWHaU-unsplash.jpg">
+                <br/>
+                  <div class="form-check">
+                    <input type="radio" class="form-check-input" id="materialUnchecked" name="materialExampleRadios" mdbInput>
+                    <label class="form-check-label" for="materialUnchecked">Cities and LandMarks</label>
+                  </div>
+                  </mat-card-content>
+            </mat-grid-tile>
+            <mat-grid-tile>
+              <mat-card-content>
+              <img class="tile-image" src="assets/sergey-pesterev-dnLmApcmNHg-unsplash.jpg">
+              <br/>
+                  <div class="form-check">
+                    <input type="radio" class="form-check-input" id="materialUnchecked" name="materialExampleRadios" mdbInput>
+                    <label class="form-check-label" for="materialUnchecked">Mountains,desserts and Lakes</label>
+                  </div>
+                </mat-card-content>
+          </mat-grid-tile>
+          <mat-grid-tile>
+          <mat-card-content>
+            <img class="tile-image" src="assets/kym-ellis-aF1NPSnDQLw-unsplash.jpg">
+            <br/>
+                  <div class="form-check">
+                    <input type="radio" class="form-check-input" id="materialUnchecked" name="materialExampleRadios" mdbInput>
+                    <label class="form-check-label" for="materialUnchecked">Culture,food and wine</label>
+                  </div>
+                  </mat-card-content>
+        </mat-grid-tile>
+
+        <mat-grid-tile>
+          <mat-card-content>
+          <img class="tile-image" src="assets/hu-chen-FZ0qzjVF_-c-unsplash.jpg">
+          <br/>
+                  <div class="form-check">
+                    <input type="radio" class="form-check-input" id="materialUnchecked" name="materialExampleRadios" mdbInput>
+                    <label class="form-check-label" for="materialUnchecked">Outdoor extreme sports</label>
+                  </div>
+                </mat-card-content>
+      </mat-grid-tile>
+ 
+      <mat-grid-tile>
+      <mat-card-content>
+        <img class="tile-image" src="assets/elizeu-dias-RN6ts8IZ4_0-unsplash.jpg">
+        <br/>
+        <div class="form-check">
+          <input type="radio" class="form-check-input" id="materialUnchecked" name="materialExampleRadios" mdbInput>
+          <label class="form-check-label" for="materialUnchecked">Beach and Sunny destinations</label>
+        </div>
+       </mat-card-content>
+    </mat-grid-tile>
+  </mat-grid-list>
+
             <mat-form-field>
-            <input matInput [matDatepicker]="picker" placeholder="2/01/2020">
+            <input matInput [matDatepicker]="picker" placeholder="12/01/2020">
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
           <div class="button-row">
-            <button type="submit" mat-flat-button>SEARCH<mat-icon>view_list</mat-icon></button>
+            <button type="submit" mat-flat-button>SEARCH</button>
           </div>
         </form>
     </mat-card>

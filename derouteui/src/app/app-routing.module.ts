@@ -7,6 +7,8 @@ import {PricingComponent} from './pricing/pricing.component';
 import {MultiLegShelvesComponent} from './multi-leg-shelves/multi-leg-shelves.component';
 import {MultiLegComponent} from './multi-leg/multi-leg.component';
 import { PricingShelvesComponent2 } from './pricingshelves2/pricingshelves.2.component';
+import { LoginUserComponent } from './login-user/login-user.component';
+import {LandingComponent} from './landing/landing.component';
 
 const routes: Routes = [
   {
@@ -40,8 +42,18 @@ const routes: Routes = [
     data: { title: 'Query MultiLeg' }
   },
   {
+    path: 'login',
+    component: LoginUserComponent,
+    data: { title: 'Login' }
+  },
+  {
+    path: 'landing',
+    component: LandingComponent,
+    data: { title: 'Landing' }
+  },
+  {
     path: '',
-    redirectTo: '/pricing',
+    redirectTo: '/landing',
     pathMatch: 'full'
   }
 

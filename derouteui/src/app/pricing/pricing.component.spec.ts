@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {} from  "@material/image-list";
 
 import { PricingComponent } from './pricing.component';
 

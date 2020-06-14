@@ -17,6 +17,9 @@ import { PricingShelvesComponent } from './pricingshelves/pricingshelves.compone
 import { PricingShelvesComponent2 } from './pricingshelves2/pricingshelves.2.component';
 import { MultiLegComponent } from './multi-leg/multi-leg.component';
 import { MultiLegShelvesComponent } from './multi-leg-shelves/multi-leg-shelves.component';
+import { LoginUserComponent } from './login-user/login-user.component';
+import { LandingComponent } from './landing/landing.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,6 +30,8 @@ import { MultiLegShelvesComponent } from './multi-leg-shelves/multi-leg-shelves.
     PricingShelvesComponent2,
     MultiLegComponent,
     MultiLegShelvesComponent,
+    LoginUserComponent,
+    LandingComponent,
   ],
   imports: [
     BrowserModule,

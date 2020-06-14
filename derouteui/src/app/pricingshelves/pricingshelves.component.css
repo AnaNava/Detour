@@ -19,6 +19,15 @@ mat-spinner {
     align-content: center;
     
   }
+
+  .imgbanner
+{
+    width:80%;
+    max-width: 80%;
+    line-height: 80%;
+    max-height:80%;
+    height:80%;
+}
   
   
   .example-loading-shade {
@@ -44,82 +53,18 @@ mat-spinner {
  
 
   .mat-column-itinerary_name {
-    flex: 0 0 20% !important;
-    width: 20% !important;
+    flex: 0 0 30% !important;
+    width: 30% !important;
     color:black;
     justify-content: center;
     align-content: center;
     text-align: center;
   }
   
-  .mat-column-leg {
-    flex: 0 0 6% !important;
-    width: 6% !important;
-    color:black;
-    justify-content: center;
-    align-content: center;
-    text-align: center;
-    
-  }
-  
-  
-  .mat-column-Star4 {
-    border-left: 3px solid whitesmoke;
-    flex: 0 0 10% !important;
-    width: 10% !important;
-    color:black;
-    justify-content: center;
-    align-content: center;
-    text-align: center;
-  }
-  .mat-column-Star5 {
-    border-left: 3px solid whitesmoke;
-    flex: 0 0 10% !important;
-    width: 10% !important;
-    color:black;
-    justify-content: center;
-    align-content: center;
-    text-align: center;
-  }
-  .mat-column-Star6 {
-    border-left: 3px solid whitesmoke;
-    flex: 0 0 10% !important;
-    width: 10% !important;
-    color:black;
-    justify-content: center;
-    align-content: center;
-    text-align: center;
-  }
-  .mat-column-Star3 {
-    border-left: 3px solid whitesmoke;
-    flex: 0 0 10% !important;
-    width: 10% !important;
-    color:black;
-    justify-content: center;
-    align-content: center;
-    text-align: center;
-  }
-  .mat-column-Star2 {
-    border-left: 3px solid whitesmoke;
-    flex: 0 0 10% !important;
-    width: 10% !important;
-    color:black;
-    justify-content: center;
-    align-content: center;
-    text-align: center;
-  }
   .mat-column-Star1 {
-    border-left: 3px solid whitesmoke;
-    flex: 0 0 10% !important;
-    width: 10% !important;
+    width:100%;
     color:black;
-    justify-content: center;
-    align-content: center;
-    text-align: center;
-  }
-  .mat-column-Other {
-    border-left: 3px solid whitesmoke;
-    color:black;
+    
     justify-content: center;
     align-content: center;
     text-align: center;
@@ -131,11 +76,15 @@ mat-spinner {
   
   
   .mat-row:nth-child(even){
-    background-color:white;
+    background-color:#f1e3f0;
+    font-size: 32px;
+    font-style:Gibson;
     }
   
   .mat-row:nth-child(odd){
-    background-color:whitesmoke;
+    background-color:#d4c0d2;
+    font-size: 20px;
+    font-style:Gibson;
     }
     
   .mat-header-cell{
@@ -149,13 +98,7 @@ mat-spinner {
       background-color: white;
       text-align: center;
     }
-  
-    .header-text{
-      text-align: center;
-      color:black;
-      background:rgb(57, 171, 199)
-      
-    }
+
     .header {
         display: flex;
         flex-direction: row;
@@ -171,9 +114,16 @@ mat-spinner {
       color:white;
       background: grey;
     }
+
+    .header-text{
+      color:white;
+      background:#652D8E
+    }
+
   
     .iconsize{
-      font-size: 60%;
+      font-size: 20px;
+      font-style: Gibson;
     }
   
     .element-row {
@@ -260,8 +210,9 @@ mat-spinner {
 
   .imagestylecarrier
   {
-    height:15%;
-    width:15% !important;
+    height:30%;
+    width:30% !important;
+    font-size: 20px;
   }
 
   .imagedrawerstyle
