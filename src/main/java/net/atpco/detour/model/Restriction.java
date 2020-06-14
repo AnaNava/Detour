@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.AllArgsConstructor;
@@ -23,6 +24,7 @@ public class Restriction {
 	public String domestic;
 	public String nonCitizen;
 	public String citizen;
+	@JsonIgnore
 	public List<String> text = null;
 	
 }

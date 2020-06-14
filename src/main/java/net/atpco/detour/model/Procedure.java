@@ -1,10 +1,9 @@
 package net.atpco.detour.model;
 
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.AllArgsConstructor;
@@ -20,6 +19,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Procedure {
 
+	@JsonIgnore
 	public String _14DaylockDown;
 	public List<String> text = null;
 

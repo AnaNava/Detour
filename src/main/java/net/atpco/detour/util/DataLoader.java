@@ -94,9 +94,9 @@ public class DataLoader {
 				utaInfo.setCancellation(cancellation);
 				utaInfo.setCarryOnAllowance(carryOnAllowance);
 				utaInfo.setCheckedBagAllowance(checkedBagAllowance);
+				utaInfo.setBrandName(brand);
 
 				Fares fare = new Fares();
-				fare.setBrand(brand);
 				fare.setUtaInfo(utaInfo);
 
 				List<Fares> fares = new ArrayList<>();
