@@ -22,7 +22,7 @@ public class CountryInfo {
 	@JsonIgnore
 	public String countryCode;
 	public String status;
-	public Restriction restriction;
+	public CountryRestriction restriction;
 	public Procedure procedure;
 	@JsonIgnore
 	public String endDate;

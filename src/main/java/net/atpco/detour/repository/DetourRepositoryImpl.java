@@ -33,7 +33,7 @@ public class DetourRepositoryImpl implements DetourRepository {
 
 	@Override
 	public List<CityInfo> getCity(String cityCode) {
-		Query query = new Query().addCriteria(Criteria.where("cityyCode").is(cityCode));
+		Query query = new Query().addCriteria(Criteria.where("cityCode").is(cityCode));
         return template.find(query, CityInfo.class, "CityInfo");
 	}
 
