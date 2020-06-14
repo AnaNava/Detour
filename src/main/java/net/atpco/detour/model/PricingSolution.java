@@ -32,6 +32,7 @@ public class PricingSolution {
 	private CountryInfo countryInfo;
 	private List<AirportInfo> airportInfoList;
 	private CityInfo destinationCityInfo;
+	private AirlineInfo airlineInfo;
 	private List<Fares> fares;
 	private List<Flights> flightsList;
 	@JsonIgnore
@@ -58,5 +59,9 @@ public class PricingSolution {
 			airportInfoList.add(airportInfo);
 		}
 		
+		if (airlineInfo == null) {
+			airlineInfo = new AirlineInfo();
+			airlineInfo.setAirline(carrier);
+		}
 	}
 }
