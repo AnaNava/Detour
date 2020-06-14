@@ -20,6 +20,8 @@ import net.atpco.detour.repository.DetourRepository;
 
 @Slf4j
 public class DataLoader {
+	
+	private static Map<String, String> countryCodeMap = new HashMap<>();
 
 	public List<PricingSolution> loadPS(String fileName, DetourRepository detourRepository) throws IOException {
 		log.info("Loading Shopping Response");
@@ -115,21 +117,15 @@ public class DataLoader {
 		return pairs;
 	}
 	
-<<<<<<< HEAD
+
 	private void setCountryInfo(PricingSolution sol, DetourRepository detourRepository) {
 		List<CountryInfo> countryInfo = detourRepository.getCountry(getCountryCode(sol.getDestination()));
 		sol.setCountryInfo(countryInfo.get(0));
 	}
 
 
-	private String getCountryCode(String city) {
-		// use extended loc
-		return "US";
-=======
-	
 	public static String getCountryCode(String city) {
 		return countryCodeMap.get(city);
->>>>>>> master
 	}
 
 }
