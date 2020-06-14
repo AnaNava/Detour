@@ -160,7 +160,7 @@ public class DataLoader {
 	}
 	
 	
-	public String getCountryCode(String city) {
+	public static String getCountryCode(String city) {
 		return countryCodeMap.get(city);
 	}
 
