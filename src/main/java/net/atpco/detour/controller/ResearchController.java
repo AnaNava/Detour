@@ -17,9 +17,9 @@ public class ResearchController {
 	private final SearchService searchService;
 
 	@RequestMapping("/country")
-    public ResponseEntity<String> processRequest(String carrier) {
+    public ResponseEntity<String> processRequest(String countryCode) {
         log.info("DetourController - processRequest");
-        HttpEntity<String> response =  searchService.getCountryData(carrier);
+        HttpEntity<String> response =  searchService.getCountryData(countryCode);
         return ResponseEntity.ok("OK");
     }
 

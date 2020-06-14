@@ -36,6 +36,7 @@ public class PricingSolution {
 	private List<Flights> flightsList;
 	@JsonIgnore
 	private String countryCode;
+	private int pricingSolutionIndex;
 	
 	public void ratePricingSolution() {
 		detourScore = "Good";

@@ -22,15 +22,18 @@ import net.atpco.detour.repository.DetourRepository;
 
 @Slf4j
 public class DataLoader {
-	
+
 	private static Map<String, String> countryCodeMap = new HashMap<>();
 
-	public List<PricingSolution> loadPS(String origin, String destination, DetourRepository detourRepository) throws IOException {
+	public List<PricingSolution> loadPS(String origin, String destination, DetourRepository detourRepository,
+			int pricingSolIndex) throws IOException {
 		log.info("Loading Shopping Response");
-		InputStream shoppingRes = this.getClass().getClassLoader().getResourceAsStream("result" + origin + destination + ".csv");
+		InputStream shoppingRes = this.getClass().getClassLoader()
+				.getResourceAsStream("result" + origin + destination + ".csv");
 		List<PricingSolution> pricingSolutions = new ArrayList<>();
-		if (shoppingRes == null) return pricingSolutions;
-		
+		if (shoppingRes == null)
+			return pricingSolutions;
+
 		String countryCode = getCountryCode(destination);
 		CountryInfo countryInfo = null;
 		if (countryCode != null) {
@@ -38,24 +41,22 @@ public class DataLoader {
 			if (countryInfos.size() > 0) {
 				countryInfo = countryInfos.get(0);
 			}
-			log.info("CountryInfo - " + countryInfo);
+			log.info("CountryInfo for country {} : {} ", countryCode,
+					countryInfo != null ? countryInfo.getCountryName() : "");
 		}
-		
-//		CityInfo destinationCityInfo = null;
-//		if (destinationCityInfo != null) {
-//			List<CityInfo> cityInfos = detourRepository.getCity(destination);
-//			if (cityInfos.size() > 0) {
-//				destinationCityInfo = cityInfos.get(0);
-//			}
-//			log.info("CityInfo - " + destinationCityInfo);
-//		}
-		
-		List<AirportInfo> airportInfoList = null;
-		if (airportInfoList != null) {
-			List<AirportInfo> airportInfos = detourRepository.getAirport(destination);
-			log.info("CityInfo - " + airportInfoList);
-		}
-	
+
+		// CityInfo destinationCityInfo = null;
+		// if (destinationCityInfo != null) {
+		// List<CityInfo> cityInfos = detourRepository.getCity(destination);
+		// if (cityInfos.size() > 0) {
+		// destinationCityInfo = cityInfos.get(0);
+		// }
+		// log.info("CityInfo - " + destinationCityInfo);
+		// }
+
+		List<AirportInfo> airportInfos = detourRepository.getAirport(destination);
+		log.info("CityInfo - " + airportInfos);
+
 		try (CSVReader csvReader = new CSVReader(new InputStreamReader(shoppingRes))) {
 			csvReader.readNext(); // skip header line
 			String[] line;
@@ -79,8 +80,8 @@ public class DataLoader {
 				PricingSolution sol = new PricingSolution();
 				sol.setCountryCode(countryCode);
 				sol.setCountryInfo(countryInfo);
-//				sol.setDestinationCityInfo(destinationCityInfo)
-				sol.setAirportInfoList(airportInfoList);
+				// sol.setDestinationCityInfo(destinationCityInfo)
+				sol.setAirportInfoList(airportInfos);
 				sol.setAmount(amount);
 				sol.setNgsRating(portionShelves);
 
@@ -116,6 +117,7 @@ public class DataLoader {
 				PricingSolution sol1 = parseItinStr(itinStr, sol);
 				sol1.ratePricingSolution();
 				if (sol1 != null) {
+					sol.setPricingSolutionIndex(++pricingSolIndex);
 					pricingSolutions.add(sol);
 				}
 			}
@@ -154,7 +156,7 @@ public class DataLoader {
 		if (faresegments.length >= 1) {
 			String[] parts = faresegments[0].split("/");
 			sol.setOrigin(parts[0]);
-			sol.setDestination(faresegments[faresegments.length-1].split("/")[6]);
+			sol.setDestination(faresegments[faresegments.length - 1].split("/")[6]);
 			sol.getFlightsList().get(0).setCabin(String.valueOf(parts[4].charAt(0)));
 			sol.getFlightsList().get(0).setFlightNumber(parts[2]);
 			sol.setDepartureDate(parts[1]);
@@ -184,8 +186,8 @@ public class DataLoader {
 					cities.add(detination);
 					pairs.put(origin, cities);
 				}
-				
-				if (countryCodeMap.get(detination) == null ) {
+
+				if (countryCodeMap.get(detination) == null) {
 					countryCodeMap.put(detination, destCountry);
 				}
 
@@ -196,8 +198,7 @@ public class DataLoader {
 		log.info("Loaded Shopping Response {}", pairs.size());
 		return pairs;
 	}
-	
-	
+
 	public static String getCountryCode(String city) {
 		return countryCodeMap.get(city);
 	}

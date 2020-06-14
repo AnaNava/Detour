@@ -44,15 +44,16 @@ public class DetourService {
 			log.info("destinations {}", destinations);
 			
 			if (destinations == null) return response;
-			
+			int pricingSolIndex = 0;
 			List<PricingSolution> solutions = new ArrayList<>();
 			for (String destination : destinations) {
 				log.info("Data Loading {}, {}", detourReq.getOrigin(), destination);
-				List<PricingSolution> sols = loader.loadPS(detourReq.getOrigin(), destination, detourRepository);
+				List<PricingSolution> sols = loader.loadPS(detourReq.getOrigin(), destination, detourRepository, pricingSolIndex);
 				if (sols == null) {
 					//Call Shopping API
 					searchService.getShoppingResponse(detourReq, destination);
 				}
+				pricingSolIndex=sols.size();
 				solutions.addAll(sols);
 
 			}
