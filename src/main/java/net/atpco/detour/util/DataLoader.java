@@ -203,7 +203,7 @@ public class DataLoader {
 		log.info("Loaded Shopping Response {}", pairs.size());
 		return pairs;
 	}
-
+	
 	public static String getCountryCode(String city) {
 		return countryCodeMap.get(city);
 	}
