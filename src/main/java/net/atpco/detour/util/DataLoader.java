@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import au.com.bytecode.opencsv.CSVReader;
 import lombok.extern.slf4j.Slf4j;
@@ -17,9 +19,9 @@ import net.atpco.detour.model.UTAInfo;
 @Slf4j
 public class DataLoader {
 
-	public List<PricingSolution> load() throws IOException {
+	public List<PricingSolution> loadPS(String fileName) throws IOException {
 		log.info("Loading Shopping Response");
-		InputStream shoppingRes = this.getClass().getClassLoader().getResourceAsStream("resultIADORD.csv");
+		InputStream shoppingRes = this.getClass().getClassLoader().getResourceAsStream("result" + fileName + ".csv");
 		List<PricingSolution> pricingSolutions = new ArrayList<>();
 		try (CSVReader csvReader = new CSVReader(new InputStreamReader(shoppingRes))) {
 			csvReader.readNext(); // skip header line
@@ -80,6 +82,34 @@ public class DataLoader {
 
 		log.info("Loaded Shopping Response {}", pricingSolutions.size() );
 		return pricingSolutions;
+	}
+	
+
+	public Map<String, List<String>> loadCityPair() throws IOException {
+		log.info("Loading Shopping Response");
+		InputStream shoppingRes = this.getClass().getClassLoader().getResourceAsStream("cityPair.csv");
+		Map<String, List<String>> pairs = new HashMap<>();
+		try (CSVReader csvReader = new CSVReader(new InputStreamReader(shoppingRes))) {
+			csvReader.readNext(); // skip header line
+			String[] line;
+			while ((line = csvReader.readNext()) != null) {
+				String origin = line[0];
+				String detination = line[1];
+				List<String> cities = pairs.get(origin);
+				if (cities != null) {
+					cities.add(detination);
+				} else {
+					cities = new ArrayList<String>();
+					cities.add(detination);
+					pairs.put(origin, cities);
+				}
+
+			}
+			shoppingRes.close();
+		}
+
+		log.info("Loaded Shopping Response {}", pairs.size() );
+		return pairs;
 	}
 
 }
