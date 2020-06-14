@@ -25,6 +25,7 @@ public class AirportInfo {
 	public Hygenie hygenie;
 	public AirportRestriction airportRestriction;
 	public String endDate;
+	public String openDate;
 	private String rating;
 	private String rupa;
 }

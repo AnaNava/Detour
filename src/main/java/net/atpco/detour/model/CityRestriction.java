@@ -23,5 +23,6 @@ public class CityRestriction {
 	public String resturants;
 	public String nonessential;
 	public List<String> text = null;
+	public String additionalRestrictionText;
 
 }
