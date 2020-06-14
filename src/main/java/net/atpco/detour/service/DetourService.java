@@ -43,11 +43,8 @@ public class DetourService {
 			List<String> destinations = destinationMap.get(detourReq.getOrigin());
 			log.info("destinations {}" , destinations);
 			String destination = destinations.size() >0 ? destinations.get(0) : "ORD";
-			
-			List<PricingSolution> solutions = loader.loadPS(detourReq.getOrigin()+destination);
-			response.setSolutions(solutions);
-            List<CountryInfo> countryInfo = detourRepository.getCountry("US");
-		    log.info("CountryInfo - " + countryInfo.get(0).toString());
+			List<PricingSolution> solutions = loader.loadPS(detourReq.getOrigin()+destination, detourRepository);
+			response.setSolutions(solutions);          
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -55,5 +52,6 @@ public class DetourService {
 		
 		return response;
 	}
-
+	
+	
 }

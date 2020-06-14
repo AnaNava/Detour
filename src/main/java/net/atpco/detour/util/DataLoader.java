@@ -11,15 +11,17 @@ import java.util.Map;
 import au.com.bytecode.opencsv.CSVReader;
 import lombok.extern.slf4j.Slf4j;
 import net.atpco.detour.model.Ammenities;
+import net.atpco.detour.model.CountryInfo;
 import net.atpco.detour.model.Fares;
 import net.atpco.detour.model.Flights;
 import net.atpco.detour.model.PricingSolution;
 import net.atpco.detour.model.UTAInfo;
+import net.atpco.detour.repository.DetourRepository;
 
 @Slf4j
 public class DataLoader {
 
-	public List<PricingSolution> loadPS(String fileName) throws IOException {
+	public List<PricingSolution> loadPS(String fileName, DetourRepository detourRepository) throws IOException {
 		log.info("Loading Shopping Response");
 		InputStream shoppingRes = this.getClass().getClassLoader().getResourceAsStream("result" + fileName + ".csv");
 		List<PricingSolution> pricingSolutions = new ArrayList<>();
@@ -73,7 +75,8 @@ public class DataLoader {
 
 				sol.setFlightsList(flights);
 				sol.setFares(fares);
-
+				
+				setCountryInfo(sol, detourRepository);
 				pricingSolutions.add(sol);
 
 			}
@@ -110,6 +113,17 @@ public class DataLoader {
 
 		log.info("Loaded Shopping Response {}", pairs.size() );
 		return pairs;
+	}
+	
+	private void setCountryInfo(PricingSolution sol, DetourRepository detourRepository) {
+		List<CountryInfo> countryInfo = detourRepository.getCountry(getCountryCode(sol.getDestination()));
+		sol.setCountryInfo(countryInfo.get(0));
+	}
+
+
+	private String getCountryCode(String city) {
+		// use extended loc
+		return "US";
 	}
 
 }
