@@ -50,12 +50,22 @@ public class DataLoader {
 		 if (cityInfos.size() > 0) {
 			 destinationCityInfo = cityInfos.get(0);
 		 }
-		 log.info("CityInfo - " + destinationCityInfo);
+		 log.info("CityInfo for {} - {} ", destination, destinationCityInfo);
 
 		List<AirportInfo> airportInfos = detourRepository.getAirport(destination);
 		airportInfos.addAll(detourRepository.getAirport(origin));
 		log.info("AirportInfo - " + airportInfos);
 
+		getData(pricingSolIndex, shoppingRes, pricingSolutions, countryCode, countryInfo, destinationCityInfo,
+				airportInfos);
+
+		log.info("Loaded Shopping Response {}", pricingSolutions.size());
+		return pricingSolutions;
+	}
+
+	private void getData(int pricingSolIndex, InputStream shoppingRes, List<PricingSolution> pricingSolutions,
+			String countryCode, CountryInfo countryInfo, CityInfo destinationCityInfo, List<AirportInfo> airportInfos)
+			throws IOException {
 		try (CSVReader csvReader = new CSVReader(new InputStreamReader(shoppingRes))) {
 			csvReader.readNext(); // skip header line
 			String[] line;
@@ -121,9 +131,6 @@ public class DataLoader {
 			}
 			shoppingRes.close();
 		}
-
-		log.info("Loaded Shopping Response {}", pricingSolutions.size());
-		return pricingSolutions;
 	}
 
 	private PricingSolution parseItinStr(String engineItinStr, PricingSolution sol) {
