@@ -115,6 +115,7 @@ public class DataLoader {
 		return pairs;
 	}
 	
+<<<<<<< HEAD
 	private void setCountryInfo(PricingSolution sol, DetourRepository detourRepository) {
 		List<CountryInfo> countryInfo = detourRepository.getCountry(getCountryCode(sol.getDestination()));
 		sol.setCountryInfo(countryInfo.get(0));
@@ -124,6 +125,11 @@ public class DataLoader {
 	private String getCountryCode(String city) {
 		// use extended loc
 		return "US";
+=======
+	
+	public static String getCountryCode(String city) {
+		return countryCodeMap.get(city);
+>>>>>>> master
 	}
 
 }
