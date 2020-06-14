@@ -18,6 +18,8 @@ import net.atpco.detour.model.UTAInfo;
 
 @Slf4j
 public class DataLoader {
+	
+	private static Map<String, String> countryCodeMap = new HashMap<>();
 
 	public List<PricingSolution> loadPS(String fileName) throws IOException {
 		log.info("Loading Shopping Response");
@@ -74,16 +76,56 @@ public class DataLoader {
 				sol.setFlightsList(flights);
 				sol.setFares(fares);
 
-				pricingSolutions.add(sol);
-
+				PricingSolution sol1 = parseItinStr(itinStr, sol);
+				if (sol1 != null) {
+					pricingSolutions.add(sol);
+				}
 			}
 			shoppingRes.close();
 		}
 
-		log.info("Loaded Shopping Response {}", pricingSolutions.size() );
+		log.info("Loaded Shopping Response {}", pricingSolutions.size());
 		return pricingSolutions;
 	}
-	
+
+	private PricingSolution parseItinStr(String engineItinStr, PricingSolution sol) {
+		String[] farecomponents = engineItinStr.split("\\.");
+
+		log.debug("Lengthfcs=" + farecomponents.length);
+		log.debug("Itinerary" + engineItinStr);
+		PricingSolution sol1 = null;
+		if (farecomponents.length == 1) { // one iteration only
+			sol1 = parseFCStr(engineItinStr, sol);
+			log.debug("fareComponent string '{}'", sol1);
+		}
+		return sol1;
+	}
+
+	private PricingSolution parseFCStr(String fcStr, PricingSolution sol) {
+		String[] partsWithFbc = fcStr.split("-");
+
+		String[] fareInfoParts = partsWithFbc[1].split(" ");
+		String carrier = fareInfoParts[0]; // carrier
+		String fbc = fareInfoParts[1]; // fare basis code
+		sol.getFares().get(0).setFareClass(fbc);
+		sol.setCarrier(carrier);
+
+		String justFcStr = partsWithFbc[0];
+
+		String[] faresegments = justFcStr.split("~");
+		if (faresegments.length >= 1) {
+			String[] parts = faresegments[0].split("/");
+			sol.setOrigin(parts[0]);
+			sol.setDestination(parts[6]);
+			sol.getFlightsList().get(0).setCabin(String.valueOf(parts[4].charAt(0)));
+			sol.getFlightsList().get(0).setFlightNumber(parts[2]);
+			sol.setDepartureDate(parts[1]);
+		} else {
+			return null;
+		}
+		return sol;
+
+	}
 
 	public Map<String, List<String>> loadCityPair() throws IOException {
 		log.info("Loading Shopping Response");
@@ -95,6 +137,7 @@ public class DataLoader {
 			while ((line = csvReader.readNext()) != null) {
 				String origin = line[0];
 				String detination = line[1];
+				String destCountry = line[2];
 				List<String> cities = pairs.get(origin);
 				if (cities != null) {
 					cities.add(detination);
@@ -103,13 +146,22 @@ public class DataLoader {
 					cities.add(detination);
 					pairs.put(origin, cities);
 				}
+				
+				if (countryCodeMap.get(detination) == null ) {
+					countryCodeMap.put(detination, destCountry);
+				}
 
 			}
 			shoppingRes.close();
 		}
 
-		log.info("Loaded Shopping Response {}", pairs.size() );
+		log.info("Loaded Shopping Response {}", pairs.size());
 		return pairs;
+	}
+	
+	
+	public String getCountryCode(String city) {
+		return countryCodeMap.get(city);
 	}
 
 }
