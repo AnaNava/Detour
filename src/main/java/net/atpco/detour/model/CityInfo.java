@@ -13,16 +13,15 @@ import lombok.Setter;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AirportInfo {
-
-	public String airportName;
+public class CityInfo {
+	
+	public String cityName;
 	public String airportCode;
 	public String cityCode;
 	public String countryCode;
 	public String status;
-	public Hygenie hygenie;
-	public AirportRestriction airportRestriction;
+	public CategoryInfo categoryInfo;
+	public CityRestriction cityRestriction;
 	public String endDate;
-	private String rating;
-	private String rupa;
+
 }

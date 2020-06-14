@@ -13,16 +13,12 @@ import lombok.Setter;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AirportInfo {
+public class Hygenie {
 
-	public String airportName;
-	public String airportCode;
-	public String cityCode;
-	public String countryCode;
-	public String status;
-	public Hygenie hygenie;
-	public AirportRestriction airportRestriction;
-	public String endDate;
-	private String rating;
-	private String rupa;
+	public String contactless;
+	public String socialDistancing;
+	public String temperatureCheck;
+	public String masks;
+	public String handStantizer;
+
 }
