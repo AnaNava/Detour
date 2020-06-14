@@ -42,6 +42,9 @@ public class DetourService {
 			}
 			List<String> destinations = destinationMap.get(detourReq.getOrigin());
 			log.info("destinations {}", destinations);
+			
+			if (destinations == null) return response;
+			
 			List<PricingSolution> solutions = new ArrayList<>();
 			for (String destination : destinations) {
 				log.info("Data Loading {}, {}", detourReq.getOrigin(), destination);

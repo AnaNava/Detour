@@ -24,6 +24,7 @@ public class CountryInfo {
 	public String status;
 	public Restriction restriction;
 	public Procedure procedure;
+	@JsonIgnore
 	public String endDate;
 	
 }

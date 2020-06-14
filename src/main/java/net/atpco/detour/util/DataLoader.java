@@ -114,6 +114,7 @@ public class DataLoader {
 				sol.setFares(fares);
 
 				PricingSolution sol1 = parseItinStr(itinStr, sol);
+				sol1.ratePricingSolution();
 				if (sol1 != null) {
 					pricingSolutions.add(sol);
 				}

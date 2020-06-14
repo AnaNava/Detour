@@ -18,10 +18,10 @@ import lombok.Setter;
 @JsonInclude(Include.NON_NULL)
 public class Hygenie {
 
-	public String contactless;
-	public String socialDistancing;
-	public String temperatureCheck;
-	public String masks;
-	public String handStantizer;
+	public String contactless = "Yes";
+	public String socialDistancing = "Yes";
+	public String temperatureCheck = "No";
+	public String masks = "Yes";
+	public String handStantizer = "Yes";
 
 }
