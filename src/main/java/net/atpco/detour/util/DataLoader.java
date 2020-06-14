@@ -10,6 +10,7 @@ import java.util.Map;
 
 import au.com.bytecode.opencsv.CSVReader;
 import lombok.extern.slf4j.Slf4j;
+import net.atpco.detour.model.AirportInfo;
 import net.atpco.detour.model.Ammenities;
 import net.atpco.detour.model.CityInfo;
 import net.atpco.detour.model.CountryInfo;
@@ -40,13 +41,19 @@ public class DataLoader {
 			log.info("CountryInfo - " + countryInfo);
 		}
 		
-		CityInfo destinationCityInfo = null;
-		if (destinationCityInfo != null) {
-			List<CityInfo> cityInfos = detourRepository.getCity(destination);
-			if (cityInfos.size() > 0) {
-				destinationCityInfo = cityInfos.get(0);
-			}
-			log.info("CityInfo - " + destinationCityInfo);
+//		CityInfo destinationCityInfo = null;
+//		if (destinationCityInfo != null) {
+//			List<CityInfo> cityInfos = detourRepository.getCity(destination);
+//			if (cityInfos.size() > 0) {
+//				destinationCityInfo = cityInfos.get(0);
+//			}
+//			log.info("CityInfo - " + destinationCityInfo);
+//		}
+		
+		List<AirportInfo> airportInfoList = null;
+		if (airportInfoList != null) {
+			List<AirportInfo> airportInfos = detourRepository.getAirport(destination);
+			log.info("CityInfo - " + airportInfoList);
 		}
 	
 		try (CSVReader csvReader = new CSVReader(new InputStreamReader(shoppingRes))) {
@@ -72,7 +79,8 @@ public class DataLoader {
 				PricingSolution sol = new PricingSolution();
 				sol.setCountryCode(countryCode);
 				sol.setCountryInfo(countryInfo);
-				sol.setDestinationCityInfo(destinationCityInfo);
+//				sol.setDestinationCityInfo(destinationCityInfo)
+				sol.setAirportInfoList(airportInfoList);
 				sol.setAmount(amount);
 				sol.setNgsRating(portionShelves);
 
