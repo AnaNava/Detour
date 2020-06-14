@@ -45,18 +45,27 @@ public class DataLoader {
 					countryInfo != null ? countryInfo.getCountryName() : "");
 		}
 
-		// CityInfo destinationCityInfo = null;
-		// if (destinationCityInfo != null) {
-		// List<CityInfo> cityInfos = detourRepository.getCity(destination);
-		// if (cityInfos.size() > 0) {
-		// destinationCityInfo = cityInfos.get(0);
-		// }
-		// log.info("CityInfo - " + destinationCityInfo);
-		// }
+		 CityInfo destinationCityInfo = null;
+		 List<CityInfo> cityInfos = detourRepository.getCity(destination);
+		 if (cityInfos.size() > 0) {
+			 destinationCityInfo = cityInfos.get(0);
+		 }
+		 log.info("CityInfo for {} - {} ", destination, destinationCityInfo);
 
 		List<AirportInfo> airportInfos = detourRepository.getAirport(destination);
-		log.info("CityInfo - " + airportInfos);
+		airportInfos.addAll(detourRepository.getAirport(origin));
+		log.info("AirportInfo - " + airportInfos);
 
+		getData(pricingSolIndex, shoppingRes, pricingSolutions, countryCode, countryInfo, destinationCityInfo,
+				airportInfos);
+
+		log.info("Loaded Shopping Response {}", pricingSolutions.size());
+		return pricingSolutions;
+	}
+
+	private void getData(int pricingSolIndex, InputStream shoppingRes, List<PricingSolution> pricingSolutions,
+			String countryCode, CountryInfo countryInfo, CityInfo destinationCityInfo, List<AirportInfo> airportInfos)
+			throws IOException {
 		try (CSVReader csvReader = new CSVReader(new InputStreamReader(shoppingRes))) {
 			csvReader.readNext(); // skip header line
 			String[] line;
@@ -64,7 +73,6 @@ public class DataLoader {
 			while ((line = csvReader.readNext()) != null && counter++ <= 2) {
 				String itinStr = line[0];
 				String amount = line[1];
-				String carrier = line[2];
 				String brand = line[3];
 				String carryOnAllowance = line[4];
 				String checkedBagAllowance = line[5];
@@ -80,7 +88,7 @@ public class DataLoader {
 				PricingSolution sol = new PricingSolution();
 				sol.setCountryCode(countryCode);
 				sol.setCountryInfo(countryInfo);
-				// sol.setDestinationCityInfo(destinationCityInfo)
+				sol.setDestinationCityInfo(destinationCityInfo);
 				sol.setAirportInfoList(airportInfos);
 				sol.setAmount(amount);
 				sol.setNgsRating(portionShelves);
@@ -123,9 +131,6 @@ public class DataLoader {
 			}
 			shoppingRes.close();
 		}
-
-		log.info("Loaded Shopping Response {}", pricingSolutions.size());
-		return pricingSolutions;
 	}
 
 	private PricingSolution parseItinStr(String engineItinStr, PricingSolution sol) {
